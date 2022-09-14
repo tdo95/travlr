@@ -17,13 +17,14 @@ MongoClient.connect(mongoConnectionString)
 
 //MIDDLEWARE
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
 app.use(express.json());
 
 //LANDING PAGE ROUTE
 app.get('/', (req, res) => {
-    res.send('<h1>WE IN BUSINESS</h1>');
+    console.log('LANDING loading...');
+    res.sendFile(__dirname + '/index.html');   
 })
 //HOMEPAGE ROUTE
 app.get('/home', (req, res) => {
