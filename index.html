@@ -8,13 +8,22 @@
 		<meta property="og:image" content="" />
 		<link rel="icon" type="image/png" href="">
 
-		<title>Blank Template</title>
+		<title>Travlr</title>
 
 		<!-- external CSS link -->
 		<link rel="stylesheet" href="css/normalize.css">
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
+		<form action="/" method="POST" id="newDestination">
+			<label for="location">Location</label>
+			<input type="text" name="location">
+			<label for="time">Time</label>
+			<input type="date" name="time">
+		</form>
+		<textarea form="newDestination" name="notes" id="destinationNotes" cols="30" rows="10"></textarea>
+	
+	
 
 		<script type="text/javascript" src="js/main.js"></script>
 	</body>
