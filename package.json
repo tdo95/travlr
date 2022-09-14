@@ -1,0 +1,11 @@
+{
+  "name": "travlr",
+  "version": "1.0.0",
+  "description": "<br><br>Try it out here: [Live Site](#) ✨ ### ![Demo Image Gif](#)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
