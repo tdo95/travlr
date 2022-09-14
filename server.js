@@ -16,8 +16,8 @@ MongoClient.connect(mongoConnectionString)
     .catch(err => console.log(err));
 
 //MIDDLEWARE
-app.set('view engine', 'ejs')
-app.use(express.urlencoded({ extended: true }))
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(express.json());
 
@@ -41,5 +41,6 @@ app.put('/home', (req, res) => {
 app.put('/home', (req, res) => {
     console.log('DELETING destination....');
 })
+
 app.listen(PORT, () => console.log(`Server running on Port ${PORT}`));
 
