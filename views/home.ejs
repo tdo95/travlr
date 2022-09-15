@@ -15,14 +15,15 @@
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
-		<form action="/home" method="POST" id="newDestination">
+		<p class="newDestinationError"></p>
+		<form id="newDestination">
 			<label for="name">Trip Name</label>
 			<input type="text" name="name">
 			<label for="location">Location</label>
 			<input type="text" name="location" required>
 			<label for="month">Time</label>
 			<select name="month" id="month">
-				<option disabled selected value="default">Month</option>
+				<option disabled selected value="">Month</option>
 				<option value="January">January</option>
 				<option value="February">February</option>
 				<option value="March">March</option>
@@ -36,11 +37,11 @@
 				<option value="Decemeber">Decemeber</option>
 			</select>
 			<select name="year" id="year">
-				<option disabled selected value="default">Year</option>
+				<option disabled selected value="">Year</option>
 
 			</select>
 			<textarea form="newDestination" name="notes" id="destinationNotes" cols="30" rows="10"></textarea>
-			<button>Submit</button>
+			<input type="button" value="Submit" id="newDestinationButton" onclick="validateNewSubmission()">
 		</form>
 		
 	
