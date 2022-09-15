@@ -33,7 +33,8 @@ app.get('/home', (req, res) => {
 //ADD DESTINATION ROUTE
 app.post('/home', (req, res) => {
     console.log('ADDING destination....');
-    
+    console.log(req.body)
+    res.redirect('/home')
 })
 //UPDATE DESTINATION ROUTE
 app.put('/home', (req, res) => {
