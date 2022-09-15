@@ -28,7 +28,12 @@ app.get('/', (req, res) => {
 })
 //HOMEPAGE ROUTE
 app.get('/home', (req, res) => {
-    res.render('home.ejs', {});
+    db.collection('destinations').find().toArray()
+    .then(data => {
+        res.render('home.ejs', {locations: data});
+    })
+    .catch(err => console.log(err))
+    
 })
 //ADD DESTINATION ROUTE
 app.post('/home', (req, res) => {
@@ -56,7 +61,6 @@ app.post('/home', (req, res) => {
             .then(data => {
                 console.log('Destination added');
                 res.status(200).send({message: "Desination added successfully"})
-                
             })
         }
         //if there is a pre-existing entry, send an error
@@ -67,9 +71,7 @@ app.post('/home', (req, res) => {
             })
         }
     })
-    .catch(err => console.log(err)) 
-
-    
+    .catch(err => console.log(err))     
 })
 //UPDATE DESTINATION ROUTE
 app.put('/home', (req, res) => {
