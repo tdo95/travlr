@@ -15,6 +15,20 @@
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
+		<section class="savedDestinations">
+			<!-- Iterate through each destination and load card in library -->
+			<% for (let i = 0; i < locations.length; i++) {%>
+				<div>
+					<% for (let field in locations[i]) {%>
+						<% if (locations[i][field] && field !== "_id") {%>
+							<p class="<%= field %>"><%= locations[i][field]%></p>
+						<%}%>
+					<% } %>	
+					<button class="edit">Edit</button>
+				</div>
+			<% } %>
+		</section>
+
 		<p class="newDestinationError"></p>
 		<form id="newDestination">
 			<label for="name">Trip Name</label>
