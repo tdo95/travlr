@@ -18,9 +18,25 @@
 		<form action="/home" method="POST" id="newDestination">
 			<label for="location">Location</label>
 			<input type="text" name="location">
-			<label for="time">Time</label>
-			<input type="date" name="time">
-			<input type="number" min="1900" max="2099" step="1" value="2016" />
+			<label for="month">Time</label>
+			<select name="month" id="month">
+				<option disabled selected value="default">Month</option>
+				<option value="january">January</option>
+				<option value="february">February</option>
+				<option value="march">March</option>
+				<option value="april">April</option>
+				<option value="june">June</option>
+				<option value="july">July</option>
+				<option value="august">August</option>
+				<option value="septembr">Septembr</option>
+				<option value="october">October</option>
+				<option value="november">November</option>
+				<option value="decemeber">Decemeber</option>
+			</select>
+			<select name="year" id="year">
+				<option disabled selected value="default">Year</option>
+
+			</select>
 			<button>Submit</button>
 		</form>
 		<textarea form="newDestination" name="notes" id="destinationNotes" cols="30" rows="10"></textarea>
