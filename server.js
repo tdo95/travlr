@@ -10,7 +10,7 @@ let db;
 MongoClient.connect(mongoConnectionString)
     .then(client => {
         console.log('Database Connected - YOU DID IT!!!');
-        db = client.db('travlr-destinations-library');
+        db = client.db('destinations-library');
         // const destinationsCollection = db.collection('destinations');    
     })
     .catch(err => console.log(err));
@@ -34,7 +34,42 @@ app.get('/home', (req, res) => {
 app.post('/home', (req, res) => {
     console.log('ADDING destination....');
     console.log(req.body)
-    res.redirect('/home')
+
+    //check for destination entry with the same name, location, month, and year
+    db.collection('destinations').find({
+        name: req.body.name,
+        location: req.body.location,
+        month: req.body.month,
+        year: req.body.year
+    })
+    .toArray()
+    .then(data => {
+        //if there are no entries add it to the database
+        if (data.length === 0) {
+            db.collection('destinations').insertOne({
+                name: req.body.name,
+                location: req.body.location,
+                month: req.body.month,
+                year: req.body.year,
+                notes: req.body.notes
+            })
+            .then(data => {
+                console.log('Destination added');
+                res.status(200).send({message: "Desination added successfully"})
+                
+            })
+        }
+        //if there is a pre-existing entry, send an error
+        else {
+            console.log('Destination already exists');
+            res.status(400).send({
+                error: 'The destination you are trying to create already exists. Try creating a unique entry'
+            })
+        }
+    })
+    .catch(err => console.log(err)) 
+
+    
 })
 //UPDATE DESTINATION ROUTE
 app.put('/home', (req, res) => {
