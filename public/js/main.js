@@ -4,11 +4,13 @@ const newDestinationButton = document.querySelector('#addDestination');
 const updateDestinationButton = document.querySelector('#updateDestination');
 const newDestinationError = document.querySelector('.newDestinationError');
 const editButtons = document.querySelectorAll('.edit');
+const deleteButtons = document.querySelectorAll('.delete');
 const formItems = Object.values(newDestinationForm);
 //stores entry information prior to edit
 let previousEntry = {}
 
 editButtons.forEach(button => button.addEventListener('click', async () => { await openPopup(button)}))
+deleteButtons.forEach(button => button.addEventListener('click', async () => { await deleteDestination(button)}))
 
 async function openPopup(e) {
     
