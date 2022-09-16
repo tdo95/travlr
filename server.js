@@ -81,8 +81,8 @@ app.put('/home', (req, res) => {
         $set: req.body.new
     })
     .then(result => {
-        console.log('Updated Destination');
-        res.json('Updated Destination');
+        if (result.lastErrorObject.updatedExisting) res.json({message: "Updated Desination"});
+        else res.json({error: "Update was unsucessful. Please try again later."});
     })
     .catch(err => console.log(err));
 })
