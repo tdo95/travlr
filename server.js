@@ -60,7 +60,9 @@ app.post('/home', (req, res) => {
             })
             .then(data => {
                 console.log('Destination added');
-                res.status(200).send({success: "Desination added successfully"})
+                console.log(data)
+                if (data.acknowledged) res.status(200).send({success: "Desination added successfully"})
+                else res.status(400).send({error: "Desination addition unsuccessful"})
             })
         }
         //if there is a pre-existing entry, send an error
@@ -92,8 +94,8 @@ app.delete('/home', (req, res) => {
     console.log(req.body);
     db.collection('destinations').deleteOne(req.body)
     .then(result => {
-        console.log('Destination Deleted')
-        res.json({sucess: 'Destination Deleted'})
+        if (data.acknowledged) res.status(200).send({success: "Desination successfully deleted"})
+        else res.status(400).send({error: "Desination deletion unsuccessful"})
     })
     .catch(error => console.error(error))
 })
