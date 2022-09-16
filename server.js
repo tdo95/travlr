@@ -76,9 +76,18 @@ app.post('/home', (req, res) => {
 //UPDATE DESTINATION ROUTE
 app.put('/home', (req, res) => {
     console.log('UPDATING destination....');
+    console.log(req.body)
+    db.collection('destinations').findOneAndUpdate(req.body.previous, {
+        $set: req.body.new
+    })
+    .then(result => {
+        console.log('Updated Destination');
+        res.json('Updated Destination');
+    })
+    .catch(err => console.log(err));
 })
 //DELETE DESTINATION ROUTE
-app.put('/home', (req, res) => {
+app.delete('/home', (req, res) => {
     console.log('DELETING destination....');
 })
 
