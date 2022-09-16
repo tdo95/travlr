@@ -1,7 +1,7 @@
 const yearSelect = document.querySelector('#year');
 const newDestinationForm = document.querySelector('#newDestination');
 const newDestinationButton = document.querySelector('#addDestination');
-const editDestinationButton = document.querySelector('#editDestination');
+const updateDestinationButton = document.querySelector('#updateDestination');
 const newDestinationError = document.querySelector('.newDestinationError');
 const editButtons = document.querySelectorAll('.edit');
 const formItems = Object.values(newDestinationForm);
@@ -62,7 +62,7 @@ async function validateNewSubmission() {
 function createRequestBody(formItems) {
     let body = {};
     for (let field of formItems) {
-        if (field.name && field.name !== "edit" && field.name !== "add") body[field.name] = field.value;
+        if (field.name && field.name !== "update" && field.name !== "add") body[field.name] = field.value;
     }
     return body;
 }
