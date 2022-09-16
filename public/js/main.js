@@ -19,7 +19,7 @@ async function openPopup(e) {
         //skips edit button
         if (element.className !== 'edit') {
         console.log(element.className, element.innerText)
-        //save entry
+        //save entry value to find in database later 
         previousEntry[element.className] = element.innerText;
         //populate infor in pop up window
         document.querySelector(`[name="${element.className}"]`).value = element.innerText;
@@ -48,23 +48,21 @@ function populateYears() {
 }
 
 async function validateNewSubmission() {
-    
-    
     //check that location has been entered
     if (formItems[1].name === "location" && formItems[1].value === "") {
         //show error message
         return showErrorMessage("Please enter a location", newDestinationError);
     }
-
     let body = createRequestBody(formItems);
     
     await addDestination(body);
 }
 
+//grab values from form fields
 function createRequestBody(formItems) {
     let body = {};
     for (let field of formItems) {
-        if (field.name) body[field.name] = field.value;
+        if (field.name && field.name !== "edit" && field.name !== "add") body[field.name] = field.value;
     }
     return body;
 }
@@ -90,7 +88,7 @@ async function addDestination(body) {
 
 }
 
-async function updateDestination(body) {
+async function updateDestination() {
     //check that location has been entered
     if (formItems[1].name === "location" && formItems[1].value === "") {
         //show error message
@@ -99,7 +97,7 @@ async function updateDestination(body) {
 
     let body = createRequestBody(formItems);
      //send the request
-     let response = await fetch('/home', {
+    let response = await fetch('/home', {
         method: 'PUT',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({new: body, previous: previousEntry})
@@ -111,8 +109,8 @@ async function updateDestination(body) {
         return showErrorMessage(data.error, newDestinationError);
     else {
         //reload page
-        previousEntry = {};
-        location.reload(); 
+        location.reload();
+        previousEntry = {}; 
     }
 
 }
@@ -129,7 +127,7 @@ function resetForm(formItems) {
     previousEntry = {};
 }
 
-function showErrorMessage(message, item) {
+function showErrorMessage(message, element) {
     //displays error message in the screen provided
-    item.innerText = message;
+    element.innerText = message;
 }
