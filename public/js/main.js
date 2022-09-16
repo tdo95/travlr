@@ -1,6 +1,6 @@
 const yearSelect = document.querySelector('#year');
 const newDestinationForm = document.querySelector('#newDestination');
-const newDestinationButton = document.querySelector('#addDestination');
+const addDestinationButton = document.querySelector('#addDestination');
 const updateDestinationButton = document.querySelector('#updateDestination');
 const newDestinationError = document.querySelector('.newDestinationError');
 const editButtons = document.querySelectorAll('.edit');
@@ -9,64 +9,64 @@ const formItems = Object.values(newDestinationForm);
 //stores entry information prior to edit
 let previousEntry = {}
 
-editButtons.forEach(button => button.addEventListener('click', async () => { await openPopup(button)}))
-deleteButtons.forEach(button => button.addEventListener('click', async () => { await deleteDestination(button)}))
+addDestinationButton.addEventListener('click', async () => {
+    //check that location has been entered
+    if (!validateForm()) return;
+    let body = createRequestBody(formItems);
+    await sendRequest('POST', body, '/home', newDestinationError);
+})
+updateDestinationButton.addEventListener('click', async() => {
+    //check that location has been entered
+    if (!validateForm()) return;
+    let body = createRequestBody(formItems);
+    await sendRequest('PUT', {new: body, previous: previousEntry}, '/home', newDestinationError);
+})
 
-async function openPopup(e) {
+editButtons.forEach(button => button.addEventListener('click', async () => {
     //clear previous entries, TODO: add this to close functionality instead
     resetForm(formItems);
-    //grab info from card and ppopulate in popup window
-    for (let element of e.parentNode.children) {
-        //skips edit button
-        if (element.className !== 'edit' && element.className !== 'delete') {
-        console.log(element.className, element.innerText)
-        //save entry value to find in database later 
-        previousEntry[element.className] = element.innerText;
-        //populate infor in pop up window
-        document.querySelector(`[name="${element.className}"]`).value = element.innerText;
-        }
-    }
+    //clear previous stored destination entry
+    clearStoredDestination()
+    //display entries in form 
+    displayValuesInForm(button.parentNode.children)
+    //store current destination values of clicked element
+    storeDestinationValues(button.parentNode.children);
+    //TODO: open popup
+}))
+deleteButtons.forEach(button => button.addEventListener('click', async () => { 
+    //clear previous entry TODO: put into it's own function, make name a bit more clear like 'stored destination entry'
+    clearStoredDestination()
+    //store current destination values of clicked element
+    storeDestinationValues(button.parentNode.children);
+    //TODO: open popup
+    await sendRequest('DELETE', previousEntry, '/home', newDestinationError);
+}))
 
-    //open pop up
+function openPopup() {
+
+}
+function closePopup() {
+
 }
 
-async function deleteDestination(e) {
-    //clear previous entry TODO: put into it's own function, make name a bit more clear like 'stored destination entry'
-    previousEntry = {}
-    //store entry
+//function populates clicked destination information in the popup window 
+function displayValuesInForm(collection) {
     //grab info from card and ppopulate in popup window
-    for (let element of e.parentNode.children) {
+    for (let element of collection) {
         //skips edit button
         if (element.className !== 'edit' && element.className !== 'delete') {
-        console.log(element.className, element.innerText)
-        //save entry value to find in database later 
-        previousEntry[element.className] = element.innerText;
-        //populate infor in pop up window
-        document.querySelector(`[name="${element.className}"]`).value = element.innerText;
+            //populate infor in pop up window
+            document.querySelector(`[name="${element.className}"]`).value = element.innerText;
         }
     }
-    //uncover the 'are you sure' window
-    //if ok
-        //delete in the database & reload page
-        //send the request
-    let response = await fetch('/home', {
-        method: 'DELETE',
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(previousEntry)
-    })
-    let data = await response.json();
-
-    //check for error 
-    if (data.error)
-        return showErrorMessage(data.error, newDestinationError);
-    else {
-        //reload page
-        location.reload(); 
+}
+function storeDestinationValues(collection) {
+    for (let element of collection ) {
+        if (element.className !== "edit" && element.className !== 'delete') {
+            //save entry value to find in database later 
+            previousEntry[element.className] = element.innerText;
+        } 
     }
-
-    //if cancel (or x?) is clicked
-        //clear stored entry
-        //close 'are you sure' window
 }
 
 
@@ -86,31 +86,20 @@ function populateYears() {
     }
 }
 
-async function validateNewSubmission() {
-    //check that location has been entered
-    if (formItems[1].name === "location" && formItems[1].value === "") {
-        //show error message
-        return showErrorMessage("Please enter a location", newDestinationError);
-    }
-    let body = createRequestBody(formItems);
-    
-    await addDestination(body);
-}
 
 //grab values from form fields
 function createRequestBody(formItems) {
     let body = {};
     for (let field of formItems) {
-        if (field.name && field.name !== "update" && field.name !== "add") body[field.name] = field.value;
+        if (field.name && field.name !== "update" && field.name !== "add") body[field.name] = field.value.trim();
     }
     return body;
 }
 
-//TODO: Refractor addDestination and updateDestination functions into one
-async function addDestination(body) {
-    //send the request
-    let response = await fetch('/home', {
-        method: 'POST',
+
+async function sendRequest(method, body, route, errorLocation) {
+    let response = await fetch(route, {
+        method: method,
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(body)
     })
@@ -118,54 +107,36 @@ async function addDestination(body) {
 
     //check for error 
     if (data.error)
-        return showErrorMessage(data.error, newDestinationError);
-    else {
-        //reload page
-        location.reload(); 
-    }
-
-}
-
-async function updateDestination() {
-    //check that location has been entered
-    if (formItems[1].name === "location" && formItems[1].value === "") {
-        //show error message
-        return showErrorMessage("Please enter a location", newDestinationError);
-    }
-
-    let body = createRequestBody(formItems);
-     //send the request
-    let response = await fetch('/home', {
-        method: 'PUT',
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({new: body, previous: previousEntry})
-    })
-    let data = await response.json();
-
-    //check for error 
-    if (data.error)
-        return showErrorMessage(data.error, newDestinationError);
+        return showErrorMessage(data.error, errorLocation);
     else {
         //reload page
         location.reload();
-        previousEntry = {}; 
     }
-
 }
-
+//reset the form fields (including clearing error messages)
 function resetForm(formItems) {
-    //reset the form fields (including clearing error messages)
     for (let field of formItems ) {
         if (field.name === "month" || field.name === "year") {
             field.selectedIndex = 0;
         }
-        else if (field.name !== "add" && field.name !== "edit") field.value = "";
+        else if (field.name !== "add" && field.name !== "update") field.value = "";
     }
-    newDestinationError.innerText = "";
+    newDestinationError.innerText = ""; 
+}
+function clearStoredDestination() {
     previousEntry = {};
 }
-
 function showErrorMessage(message, element) {
     //displays error message in the screen provided
     element.innerText = message;
+}
+//Ensures that location has been enetered, if not enetered return false, else return true
+function validateForm() {
+    //check that location has been entered
+    if (formItems[1].name === "location" && formItems[1].value === "") {
+        //show error message
+        showErrorMessage("Please enter a location", newDestinationError);
+        return false;
+    }
+    return true;
 }
