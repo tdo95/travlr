@@ -17,7 +17,7 @@ async function openPopup(e) {
     //grab info from card and ppopulate in popup window
     for (let element of e.parentNode.children) {
         //skips edit button
-        if (element.className !== 'edit') {
+        if (element.className !== 'edit' && element.className !== 'delete') {
         console.log(element.className, element.innerText)
         //save entry value to find in database later 
         previousEntry[element.className] = element.innerText;
