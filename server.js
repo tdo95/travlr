@@ -60,7 +60,7 @@ app.post('/home', (req, res) => {
             })
             .then(data => {
                 console.log('Destination added');
-                res.status(200).send({message: "Desination added successfully"})
+                res.status(200).send({success: "Desination added successfully"})
             })
         }
         //if there is a pre-existing entry, send an error
@@ -81,7 +81,7 @@ app.put('/home', (req, res) => {
         $set: req.body.new
     })
     .then(result => {
-        if (result.lastErrorObject.updatedExisting) res.json({message: "Updated Desination"});
+        if (result.lastErrorObject.updatedExisting) res.json({success: "Updated Desination"});
         else res.json({error: "Update was unsucessful. Please try again later."});
     })
     .catch(err => console.log(err));
@@ -93,7 +93,7 @@ app.delete('/home', (req, res) => {
     db.collection('destinations').deleteOne(req.body)
     .then(result => {
         console.log('Destination Deleted')
-        res.json('Destination Deleted')
+        res.json({sucess: 'Destination Deleted'})
     })
     .catch(error => console.error(error))
 })
