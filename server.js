@@ -89,6 +89,13 @@ app.put('/home', (req, res) => {
 //DELETE DESTINATION ROUTE
 app.delete('/home', (req, res) => {
     console.log('DELETING destination....');
+    console.log(req.body);
+    db.collection('destinations').deleteOne(req.body)
+    .then(result => {
+        console.log('Destination Deleted')
+        res.json('Destination Deleted')
+    })
+    .catch(error => console.error(error))
 })
 
 app.listen(PORT, () => console.log(`Server running on Port ${PORT}`));
