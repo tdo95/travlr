@@ -13,7 +13,6 @@ editButtons.forEach(button => button.addEventListener('click', async () => { awa
 deleteButtons.forEach(button => button.addEventListener('click', async () => { await deleteDestination(button)}))
 
 async function openPopup(e) {
-    
     //clear previous entries, TODO: add this to close functionality instead
     resetForm(formItems);
     //grab info from card and ppopulate in popup window
@@ -27,14 +26,52 @@ async function openPopup(e) {
         document.querySelector(`[name="${element.className}"]`).value = element.innerText;
         }
     }
-        
 
+    //open pop up
+}
+
+async function deleteDestination(e) {
+    //clear previous entry TODO: put into it's own function, make name a bit more clear like 'stored destination entry'
+    previousEntry = {}
+    //store entry
+    //grab info from card and ppopulate in popup window
+    for (let element of e.parentNode.children) {
+        //skips edit button
+        if (element.className !== 'edit' && element.className !== 'delete') {
+        console.log(element.className, element.innerText)
+        //save entry value to find in database later 
+        previousEntry[element.className] = element.innerText;
+        //populate infor in pop up window
+        document.querySelector(`[name="${element.className}"]`).value = element.innerText;
+        }
+    }
+    //uncover the 'are you sure' window
+    //if ok
+        //delete in the database & reload page
+        //send the request
+    let response = await fetch('/home', {
+        method: 'DELETE',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(previousEntry)
+    })
+    let data = await response.json();
+
+    //check for error 
+    if (data.error)
+        return showErrorMessage(data.error, newDestinationError);
+    else {
+        //reload page
+        location.reload(); 
+    }
+
+    //if cancel (or x?) is clicked
+        //clear stored entry
+        //close 'are you sure' window
 }
 
 
 
 
-//open pop up
 
 populateYears();
 
@@ -84,8 +121,7 @@ async function addDestination(body) {
         return showErrorMessage(data.error, newDestinationError);
     else {
         //reload page
-        location.reload();
-        
+        location.reload(); 
     }
 
 }
