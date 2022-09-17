@@ -46,6 +46,12 @@ header {
 .landingMain {
      display: flex;
 }
+.leftText, .rightImage {
+     width: 50%;
+}
+.rightImage img {
+     width: 100%;
+}
 footer {
 
 }
