@@ -21,7 +21,13 @@
 /* BASE STYLES
 /*******************************************/
 
+html {
+     font-size: 62.5%
+}
+
 body {
+     padding: 1rem 3rem;
+
 
 }
 
@@ -30,9 +36,16 @@ body {
 /* LAYOUT
 /*******************************************/
 header {
-
+     display: flex;
+     align-items: center;
+     height: 6rem;
 }
-
+.login {
+     margin-left: auto;
+}
+.landingMain {
+     display: flex;
+}
 footer {
 
 }
