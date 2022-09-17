@@ -5,10 +5,26 @@ const updateDestinationButton = document.querySelector('#updateDestination');
 const newDestinationError = document.querySelector('.newDestinationError');
 const editButtons = document.querySelectorAll('.edit');
 const deleteButtons = document.querySelectorAll('.delete');
+const moreButtons = document.querySelectorAll('.moreButton')
 const formItems = Object.values(newDestinationForm);
 //stores entry information prior to edit
 let previousEntry = {}
+moreButtons.forEach(button => button.addEventListener('click', (event) => {
+    //grab window
+    let window = event.target.parentNode.querySelector('.moreWindow');
 
+    //if window is hidden
+    if (window.classList.contains('hidden')) {
+        //store destination values
+        storeDestinationValues(event.target.parentNode.children);
+        //unhide window
+        window.classList.remove('hidden');
+    }
+    else {
+        //just hide window
+        window.classList.add('hidden');
+    }
+}))
 addDestinationButton.addEventListener('click', async () => {
     //check that location has been entered
     if (!validateForm()) return;
@@ -54,15 +70,16 @@ function displayValuesInForm(collection) {
     //grab info from card and ppopulate in popup window
     for (let element of collection) {
         //skips edit button
-        if (element.className !== 'edit' && element.className !== 'delete') {
+        if (element.className !== 'moreButton' && !(element.className.includes('moreWindow'))) {
             //populate infor in pop up window
             document.querySelector(`[name="${element.className}"]`).value = element.innerText;
         }
     }
 }
 function storeDestinationValues(collection) {
+    previousEntry = {}
     for (let element of collection ) {
-        if (element.className !== "edit" && element.className !== 'delete') {
+        if (element.className !== "moreButton" && !(element.className.includes('moreWindow'))) {
             //save entry value to find in database later 
             previousEntry[element.className] = element.innerText;
         } 

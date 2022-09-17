@@ -27,8 +27,6 @@ html {
 
 body {
      padding: 1rem 3rem;
-
-
 }
 
 
@@ -58,9 +56,6 @@ footer {
 
 }
 /****************** HOMEPAGE STYLES *************************/
-.destinationEntry {
-     border: 1px solid black;
-}
 .homePage, .explorePage {
      min-height: 20rem;
      border: 1px solid green;
@@ -68,18 +63,39 @@ footer {
 header .greeting {
      margin-left: auto;
 }
-.formWindow {
+.formWindow, .viewWindow {
      border: 1px solid black;
      width: 50%;
-     padding: 1rem;
-     
+     padding: 1rem;  
 }
 .formWindow form > * {
      display: block;
      width: 100%;
 }
+.savedDestinations {
+     display: flex;
+}
+.destinationCard {
+     margin-right: 2rem;
+}
+.destinationCard, .viewWindow {
+     border: 1px solid black;
+     position: relative;
+}
+.moreWindow {
+     position: absolute;
+     left: 103%;
+     background-color: green;
+     z-index: 3;
+}
+.confirmWindow {
+     /* background-color: blue; */
+}
 
-/********************** EXPORPAGE STYLES *********************/
+/********************** EXPOREPAGE STYLES *********************/
 /******************************************
 /* ADDITIONAL STYLES
 /*******************************************/
+.hidden {
+     display: none;
+}
