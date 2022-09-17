@@ -94,7 +94,7 @@ app.delete('/home', (req, res) => {
     console.log(req.body);
     db.collection('destinations').deleteOne(req.body)
     .then(result => {
-        if (data.acknowledged) res.status(200).send({success: "Desination successfully deleted"})
+        if (result.acknowledged) res.status(200).send({success: "Desination successfully deleted"})
         else res.status(400).send({error: "Desination deletion unsuccessful"})
     })
     .catch(error => console.error(error))
