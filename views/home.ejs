@@ -15,54 +15,74 @@
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
-		<section class="savedDestinations">
-			<!-- Iterate through each destination and load card in library -->
-			<% for (let i = 0; i < locations.length; i++) {%>
-				<div>
-					<% for (let field in locations[i]) {%>
-						<% if (locations[i][field] && field !== "_id") {%>
-							<p class="<%= field %>"><%= locations[i][field]%></p>
-						<%}%>
-					<% } %>	
-					<button class="edit">Edit</button>
-					<button class="delete">Delete</button>
+		<header>
+			<h1>Travlr</h1>
+			<span class="greeting">Hi, Tee</span>
+			<img src="" alt="">
+			<a href="">Logout</a>
+		</header>
+		<main>
+			<section class="homePage">
+				<h2>Destinations</h2>
+				<section class="savedDestinations">
+					<!-- Iterate through each destination and load card in library -->
+					<% for (let i = 0; i < locations.length; i++) {%>
+						<div class="destinationEntry">
+							<% for (let field in locations[i]) {%>
+								<% if (locations[i][field] && field !== "_id") {%>
+									<p class="<%= field %>"><%= locations[i][field]%></p>
+								<%}%>
+							<% } %>	
+							<button class="edit">Edit</button>
+							<button class="delete">Delete</button>
+						</div>
+					<% } %>
+				</section>
+			</section>
+			<section class="explorePage">
+				<h2>Explore</h2>
+			</section>
+			<nav>
+				<button>Home</button>
+				<button>Explore</button>
+			</nav>
+		</main>
+		<section class="formWindow">
+			<p class="newDestinationError"></p>
+			<form id="newDestination">
+				<label for="name">Trip Name</label>
+				<input type="text" name="name">
+				<label for="location">Location</label>
+				<input type="text" name="location" required>
+				<div class="time">
+					<label for="month">Time</label>
+					<select name="month" id="month">
+						<option disabled selected value="">Month</option>
+						<option value="January">January</option>
+						<option value="February">February</option>
+						<option value="March">March</option>
+						<option value="April">April</option>
+						<option value="June">June</option>
+						<option value="July">July</option>
+						<option value="August">August</option>
+						<option value="Septembr">Septembr</option>
+						<option value="October">October</option>
+						<option value="November">November</option>
+						<option value="Decemeber">Decemeber</option>
+					</select>
+					<select name="year" id="year">
+						<option disabled selected value="">Year</option>
+					</select>
 				</div>
-			<% } %>
+				<label for="notes">Notes</label>
+				<textarea form="newDestination" name="notes" id="destinationNotes" cols="30" rows="10"></textarea>
+				<div class="formButtons">
+					<input name="add" type="button" value="Add" id="addDestination" >
+					<input name="update" type="button" value="Update" id="updateDestination" >
+				</div>
+				
+			</form>
 		</section>
-
-		<p class="newDestinationError"></p>
-		<form id="newDestination">
-			<label for="name">Trip Name</label>
-			<input type="text" name="name">
-			<label for="location">Location</label>
-			<input type="text" name="location" required>
-			<label for="month">Time</label>
-			<select name="month" id="month">
-				<option disabled selected value="">Month</option>
-				<option value="January">January</option>
-				<option value="February">February</option>
-				<option value="March">March</option>
-				<option value="April">April</option>
-				<option value="June">June</option>
-				<option value="July">July</option>
-				<option value="August">August</option>
-				<option value="Septembr">Septembr</option>
-				<option value="October">October</option>
-				<option value="November">November</option>
-				<option value="Decemeber">Decemeber</option>
-			</select>
-			<select name="year" id="year">
-				<option disabled selected value="">Year</option>
-
-			</select>
-			<textarea form="newDestination" name="notes" id="destinationNotes" cols="30" rows="10"></textarea>
-			<input name="add" type="button" value="Submit" id="addDestination" >
-			<input name="update" type="button" value="Update" id="updateDestination" >
-		</form>
-		
-	
-	
-
 		<script type="text/javascript" src="js/main.js"></script>
 	</body>
 </html>

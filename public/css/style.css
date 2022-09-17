@@ -35,6 +35,8 @@ body {
 /******************************************
 /* LAYOUT
 /*******************************************/
+
+/******************* LANDING STYLES ************************/
 header {
      display: flex;
      align-items: center;
@@ -55,7 +57,29 @@ header {
 footer {
 
 }
+/****************** HOMEPAGE STYLES *************************/
+.destinationEntry {
+     border: 1px solid black;
+}
+.homePage, .explorePage {
+     min-height: 20rem;
+     border: 1px solid green;
+}
+header .greeting {
+     margin-left: auto;
+}
+.formWindow {
+     border: 1px solid black;
+     width: 50%;
+     padding: 1rem;
+     
+}
+.formWindow form > * {
+     display: block;
+     width: 100%;
+}
 
+/********************** EXPORPAGE STYLES *********************/
 /******************************************
 /* ADDITIONAL STYLES
 /*******************************************/
