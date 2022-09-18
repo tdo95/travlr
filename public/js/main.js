@@ -9,21 +9,36 @@ const moreButtons = document.querySelectorAll('.moreButton')
 const viewButtons = document.querySelectorAll('.view')
 const viewScreen = document.querySelector('.viewScreen');
 const viewWindow = document.querySelector('.viewWindow');
-const viewMoreWindow = viewWindow.querySelector('.moreWindow')
-const viewCloseButton = document.querySelector('.viewClose')
+const viewMoreWindow = viewWindow.querySelector('.moreWindow');
+const closeView = document.querySelector('.closeView');
+const formScreen = document.querySelector('.formScreen');
+const closeForm = document.querySelector('.closeForm')
+const addNewButton = document.querySelector('.addNewButton');
+const deleteConfirm = document.querySelector('.deleteConfirm');
+const deleteCancel = document.querySelector('.deleteCancel');
+const confirmScreen = document.querySelector('.confirmScreen')
 const formItems = Object.values(newDestinationForm);
 //stores entry information prior to edit
 let previousEntry = {}
-
-viewCloseButton.addEventListener('click', () => {
+addNewButton.addEventListener('click', () => {
+    //unhide add button and hide update button on form
+    addDestinationButton.classList.remove('hidden');
+    updateDestinationButton.classList.add('hidden');
+    //open form
+    formScreen.classList.remove('hidden');
+})
+//closing form will clear form entries and hide form
+closeForm.addEventListener('click', () => {
+    //hide form 
+    formScreen.classList.add('hidden');
+    resetForm(formItems);
+})
+closeView.addEventListener('click', () => {
     //hide screen 
     viewScreen.classList.add('hidden');
     //remove details from view box
     document.querySelector('.destinationDetails').remove();
 }) 
-    
-    
-
 viewButtons.forEach(button => button.addEventListener('click', () => {
     //add stored values to view Window
     let container = document.createElement('div');
@@ -74,26 +89,25 @@ editButtons.forEach(button => button.addEventListener('click', async () => {
     //clear previous stored destination entry
     clearStoredDestination()
     //display entries in form 
-    displayValuesInForm(button.parentNode.children)
-    //store current destination values of clicked element
-    storeDestinationValues(button.parentNode.children);
-    //TODO: open popup
+    displayValuesInForm(button.parentNode.parentNode.children)
+    //unhide add button and hide update button on form
+    addDestinationButton.classList.add('hidden');
+    updateDestinationButton.classList.remove('hidden');
+    //open form
+    formScreen.classList.remove('hidden');
 }))
 deleteButtons.forEach(button => button.addEventListener('click', async () => { 
-    //clear previous entry TODO: put into it's own function, make name a bit more clear like 'stored destination entry'
-    clearStoredDestination()
-    //store current destination values of clicked element
-    storeDestinationValues(button.parentNode.children);
-    //TODO: open popup
-    await sendRequest('DELETE', previousEntry, '/home', newDestinationError);
+    //open confirm window
+    confirmScreen.classList.remove('hidden');
 }))
-
-function openPopup() {
-
-}
-function closePopup() {
-
-}
+deleteCancel.addEventListener('click', () => {
+    //close confirm window
+    confirmScreen.classList.add('hidden');
+})
+deleteConfirm.addEventListener('click', async (e) => {
+    
+    await sendRequest('DELETE', previousEntry, '/home', newDestinationError);
+})
 
 //function populates clicked destination information in the popup window 
 function displayValuesInForm(collection) {
@@ -132,7 +146,6 @@ function populateYears() {
         yearSelect.appendChild(option);
     }
 }
-
 
 //grab values from form fields
 function createRequestBody(formItems) {
