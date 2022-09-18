@@ -6,9 +6,37 @@ const newDestinationError = document.querySelector('.newDestinationError');
 const editButtons = document.querySelectorAll('.edit');
 const deleteButtons = document.querySelectorAll('.delete');
 const moreButtons = document.querySelectorAll('.moreButton')
+const viewButtons = document.querySelectorAll('.view')
+const viewScreen = document.querySelector('.viewScreen');
+const viewWindow = document.querySelector('.viewWindow');
+const viewMoreWindow = viewWindow.querySelector('.moreWindow')
+const viewCloseButton = document.querySelector('.viewClose')
 const formItems = Object.values(newDestinationForm);
 //stores entry information prior to edit
 let previousEntry = {}
+
+viewCloseButton.addEventListener('click', () => {
+    //hide screen 
+    viewScreen.classList.add('hidden');
+    //remove details from view box
+    document.querySelector('.destinationDetails').remove();
+}) 
+    
+    
+
+viewButtons.forEach(button => button.addEventListener('click', () => {
+    //add stored values to view Window
+    let container = document.createElement('div');
+    container.classList.add('destinationDetails');
+    for (let prop in previousEntry) {
+        let newNode = document.createElement('p');
+        newNode.innerText = previousEntry[prop];
+        container.appendChild(newNode);
+    }
+    viewWindow.insertBefore(container, viewMoreWindow);
+    //unhide view window
+    viewScreen.classList.remove('hidden');
+}))
 moreButtons.forEach(button => button.addEventListener('click', (event) => {
     //grab window
     let window = event.target.parentNode.querySelector('.moreWindow');
@@ -23,6 +51,8 @@ moreButtons.forEach(button => button.addEventListener('click', (event) => {
     else {
         //just hide window
         window.classList.add('hidden');
+        //clear previous entry 
+        previousEntry = {};
     }
 }))
 addDestinationButton.addEventListener('click', async () => {
