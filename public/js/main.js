@@ -16,10 +16,29 @@ const closeForm = document.querySelector('.closeForm')
 const addNewButton = document.querySelector('.addNewButton');
 const deleteConfirm = document.querySelector('.deleteConfirm');
 const deleteCancel = document.querySelector('.deleteCancel');
-const confirmScreen = document.querySelector('.confirmScreen')
+const confirmScreen = document.querySelector('.confirmScreen');
+const locationInput = document.querySelector('.locationInput');
+const locationDropdown = document.querySelector('.locationDropdown');
 const formItems = Object.values(newDestinationForm);
 //stores entry information prior to edit
-let previousEntry = {}
+let previousEntry = {};
+let timeout;
+locationInput.addEventListener('input', (e) => {
+    if (timeout) clearTimeout(timeout)
+    timeout = setTimeout(async () => await showDropdownOptions(e.target.value), 1000);
+    
+})
+async function showDropdownOptions(text) {
+    let response = await fetch('/roadgoat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({input: text})
+    })
+    let data = await response.json()
+    console.log(text, data.success);
+}
+
+
 addNewButton.addEventListener('click', () => {
     //unhide add button and hide update button on form
     addDestinationButton.classList.remove('hidden');
