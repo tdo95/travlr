@@ -1,4 +1,5 @@
 require('dotenv').config();
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const express = require('express');
 const app = express();
 const PORT = 3000;
@@ -36,9 +37,18 @@ app.get('/home', (req, res) => {
     
 })
 //GET LOCATION RESULTS
-app.post('/roadgoat', (req, res) => {
+app.post('/roadgoat', async (req, res) => {
     console.log(req.body.input);
-    res.status(200).send({success: "Input recieved"})
+    fetch(`https://api.roadgoat.com/api/v2/destinations/auto_complete?q=${req.body.input}`, {
+        method:'GET',
+        headers: {
+          "Authorization": `Basic ${new Buffer.from(process.env.ROADGOAT_KEY + ":" + process.env.ROADGOAT_SECRET).toString('base64')}`,
+        }
+    })
+    .then(response => response.json())
+    .then(result => res.status(200).send(result))
+    .catch(err => console.log(err));
+    
 })
 //ADD DESTINATION ROUTE
 app.post('/home', (req, res) => {
