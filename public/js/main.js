@@ -39,17 +39,13 @@ async function showDropdownOptions(text) {
     console.log(data);
     let optionsHtml = data.data.map(obj => `<button class="dropdownEntry">${obj.attributes.name}</button>`).join('');
 
-    console.log(optionsHtml)
     locationDropdown.innerHTML = optionsHtml;
     document.querySelectorAll('.dropdownEntry').forEach(entry => entry.addEventListener('click',(e) => {
-        console.log(e.target.innerText)
         //put target value into input box
         locationInput.value = e.target.innerText;
         //clear options
         locationDropdown.innerHTML = '';
     }))
-
-
 }
 
 
