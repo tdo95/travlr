@@ -35,6 +35,11 @@ app.get('/home', (req, res) => {
     .catch(err => console.log(err))
     
 })
+//GET LOCATION RESULTS
+app.post('/roadgoat', (req, res) => {
+    console.log(req.body.input);
+    res.status(200).send({success: "Input recieved"})
+})
 //ADD DESTINATION ROUTE
 app.post('/home', (req, res) => {
     console.log('ADDING destination....');
