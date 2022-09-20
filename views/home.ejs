@@ -35,7 +35,10 @@
 							</div>
 							<button class="moreButton">. . .</button>
 							<% for (let field in locations[i]) {%>
-								<% if (locations[i][field] && field !== "_id") {%>
+								<% if (field === "imageURL") {%>
+									<img class="imageURL" src="<%= locations[i][field]%>" alt="">
+								
+								<% } else if (locations[i][field] && field !== "_id") {%>
 									<p class="<%= field %>"><%= locations[i][field]%></p>
 								<%}%>
 							<% } %>
