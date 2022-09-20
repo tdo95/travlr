@@ -61,7 +61,9 @@ app.post('/pixabay', async (req, res) => {
     .then(result => {
         
         if (result.hits.length === 0) res.status(200).send({error: "No images found :("});
-        else res.status(200).send(result.hits[0]);
+        else {
+            res.status(200).send(result.hits[0])
+        }
     })
     .catch(err => console.log(err));
 })
