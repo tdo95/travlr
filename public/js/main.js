@@ -28,6 +28,11 @@ locationInput.addEventListener('input', (e) => {
     timeout = setTimeout(async () => await showDropdownOptions(e.target.value), 1000);
     
 })
+//hides location dropdown on click away from input
+formScreen.addEventListener('click', (e) => {
+    //clear options
+    locationDropdown.innerHTML = '';
+})
 async function showDropdownOptions(text) {
     let response = await fetch('/roadgoat', {
         method: 'POST',
@@ -37,12 +42,15 @@ async function showDropdownOptions(text) {
     let data = await response.json()
     console.log(text);
     console.log(data);
+    locationDropdown.innerHTML = '';
     let optionsHtml = data.data.map(obj => `<button class="dropdownEntry">${obj.attributes.name}</button>`).join('');
 
     locationDropdown.innerHTML = optionsHtml;
     document.querySelectorAll('.dropdownEntry').forEach(entry => entry.addEventListener('click',(e) => {
+        
         //put target value into input box
         locationInput.value = e.target.innerText;
+        console.log('click event!', e.target.innerText)
         //clear options
         locationDropdown.innerHTML = '';
     }))
@@ -103,20 +111,23 @@ addDestinationButton.addEventListener('click', async () => {
     //check that location has been entered
     if (!validateForm()) return;
     let body = createRequestBody(formItems);
+    let image = await getDestinationImage();
+    body['imageURL'] = image;
     await sendRequest('POST', body, '/home', newDestinationError);
 })
 updateDestinationButton.addEventListener('click', async() => {
     //check that location has been entered
     if (!validateForm()) return;
     let body = createRequestBody(formItems);
+    let image = await getDestinationImage();
+    body['imageURL'] = image;
+    console.log(previousEntry);
     await sendRequest('PUT', {new: body, previous: previousEntry}, '/home', newDestinationError);
 })
 
 editButtons.forEach(button => button.addEventListener('click', async () => {
     //clear previous entries, TODO: add this to close functionality instead
     resetForm(formItems);
-    //clear previous stored destination entry
-    clearStoredDestination()
     //display entries in form 
     displayValuesInForm(button.parentNode.parentNode.children)
     //unhide add button and hide update button on form
@@ -138,12 +149,24 @@ deleteConfirm.addEventListener('click', async (e) => {
     await sendRequest('DELETE', previousEntry, '/home', newDestinationError);
 })
 
+async function getDestinationImage() {
+    let response = await fetch('/pixabay', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({input: locationInput.value})
+    })
+    let data = await response.json();
+    //TODO: use prop image instead
+    if(data.error) return "";
+    else return data.largeImageURL;
+}
+
 //function populates clicked destination information in the popup window 
 function displayValuesInForm(collection) {
     //grab info from card and ppopulate in popup window
     for (let element of collection) {
         //skips edit button
-        if (element.className !== 'moreButton' && !(element.className.includes('moreWindow'))) {
+        if (element.className !== 'moreButton' && element.className !== 'imageURL' && !(element.className.includes('moreWindow'))) {
             //populate infor in pop up window
             document.querySelector(`[name="${element.className}"]`).value = element.innerText;
         }
@@ -152,11 +175,13 @@ function displayValuesInForm(collection) {
 function storeDestinationValues(collection) {
     previousEntry = {}
     for (let element of collection ) {
-        if (element.className !== "moreButton" && !(element.className.includes('moreWindow'))) {
+        if(element.className === 'imageURL') previousEntry[element.className] = element.src;
+        else if (element.className !== "moreButton" && !(element.className.includes('moreWindow'))) {
             //save entry value to find in database later 
             previousEntry[element.className] = element.innerText;
         } 
     }
+    console.log(previousEntry)
 }
 
 
