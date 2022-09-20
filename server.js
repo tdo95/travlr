@@ -50,6 +50,21 @@ app.post('/roadgoat', async (req, res) => {
     .catch(err => console.log(err));
     
 })
+//GET DESTINATION IMAGE
+app.post('/pixabay', async (req, res) => {
+    console.log('GETTING IMAGE....')
+    console.log(req.body)
+    fetch(`
+    https://pixabay.com/api/?key=${process.env.PIXABAY_KEY}&q=${req.body.input.slice(0,100)}&image_type=photo&category=travel`)
+    .then(response => response.json())
+    //sends the first image obj in results
+    .then(result => {
+        
+        if (result.hits.length === 0) res.status(200).send({error: "No images found :("});
+        else res.status(200).send(result.hits[0]);
+    })
+    .catch(err => console.log(err));
+})
 //ADD DESTINATION ROUTE
 app.post('/home', (req, res) => {
     console.log('ADDING destination....');
@@ -71,7 +86,8 @@ app.post('/home', (req, res) => {
                 location: req.body.location,
                 month: req.body.month,
                 year: req.body.year,
-                notes: req.body.notes
+                notes: req.body.notes,
+                imageURL: req.body.imageURL
             })
             .then(data => {
                 console.log('Destination added');
@@ -84,7 +100,7 @@ app.post('/home', (req, res) => {
         else {
             console.log('Destination already exists');
             res.status(400).send({
-                error: 'The destination you are trying to create already exists. Try creating a unique entry'
+                error: 'The destination you are trying to create already exists. Please create a unique entry'
             })
         }
     })
@@ -94,14 +110,54 @@ app.post('/home', (req, res) => {
 app.put('/home', (req, res) => {
     console.log('UPDATING destination....');
     console.log(req.body)
-    db.collection('destinations').findOneAndUpdate(req.body.previous, {
-        $set: req.body.new
+    //check if new destination entry already exists
+    db.collection('destinations').find({
+        name: req.body.new.name,
+        location: req.body.new.location,
+        month: req.body.new.month,
+        year: req.body.new.year
     })
-    .then(result => {
-        if (result.lastErrorObject.updatedExisting) res.json({success: "Updated Desination"});
-        else res.json({error: "Update was unsucessful. Please try again later."});
+    .toArray()
+    .then(data => {
+        //if there are no entries then perform update
+        if (data.length === 0) {
+
+            db.collection('destinations').findOneAndUpdate(req.body.previous, {
+                $set: req.body.new
+            })
+            .then(result => {
+                if (result.lastErrorObject.updatedExisting) res.json({success: "Updated Desination"});
+                else res.json({error: "Update was unsucessful. Please try again later."});
+            })
+            .catch(err => console.log(err));
+
+        }
+        //if there is a pre-existing entry, send an error
+        else {
+            console.log('Destination already exists');
+            res.status(400).send({
+                error: 'The destination you are trying to create already exists. Please create a unique entry'
+            })
+        }
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 })
 //DELETE DESTINATION ROUTE
 app.delete('/home', (req, res) => {
