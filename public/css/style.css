@@ -82,6 +82,9 @@ header .greeting {
      border: 1px solid black;
      position: relative;
 }
+.imageURL {
+     width: 100px;
+}
 .moreWindow {
      position: absolute;
      left: 103%;
