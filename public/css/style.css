@@ -56,9 +56,18 @@ footer {
 
 }
 /****************** HOMEPAGE STYLES *************************/
+main {
+     overflow: hidden;
+}
+.pageContainer {
+     width: 200%;
+     display: flex;
+}
 .homePage, .explorePage {
+     width: 100%;
      min-height: 20rem;
-     border: 1px solid green;
+     outline: 1px solid green;
+     /* border: 1px solid green; */
 }
 header .greeting {
      margin-left: auto;
@@ -101,4 +110,27 @@ header .greeting {
 /*******************************************/
 .hidden {
      display: none;
+}
+.exploreOpen {
+     
+     animation: explore 1s forwards;
+}
+@keyframes explore {
+     100% {
+          transform: translateX(-50%);
+     }
+     
+}
+.homeOpen {
+     animation: home 1s backwards;
+}
+@keyframes home {
+     0% {
+          transform: translateX(-50%);
+
+     } 
+     100% {
+          transform: translateX(0%);
+     }
+     
 }
