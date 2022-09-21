@@ -19,7 +19,35 @@ const deleteCancel = document.querySelector('.deleteCancel');
 const confirmScreen = document.querySelector('.confirmScreen');
 const locationInput = document.querySelector('.locationInput');
 const locationDropdown = document.querySelector('.locationDropdown');
+const homePage = document.querySelector('.homePage');
+const explorePage = document.querySelector('.explorePage');
+const pageContainer = document.querySelector('.pageContainer');
+const homeButton = document.querySelector('.homeButton');
+const exploreButton = document.querySelector('.exploreButton');
 const formItems = Object.values(newDestinationForm);
+
+
+
+//home and explore page toggle TODO: refractor into one function
+homeButton.addEventListener('click', () => {
+    if(pageContainer.classList.contains('exploreOpen')) {
+        //remove exploreOpen transition
+        pageContainer.classList.remove('exploreOpen'); 
+        //slide page container left to open Explore
+        pageContainer.classList.add('homeOpen');
+    }
+})
+exploreButton.addEventListener('click', () => {
+    if(!pageContainer.classList.contains('exploreOpen')) {
+        //remove homeOpen transition
+        pageContainer.classList.remove('homeOpen'); 
+        //slide page container left to open Explore
+        pageContainer.classList.add('exploreOpen');
+    }
+})
+
+
+
 //stores entry information prior to edit
 let previousEntry = {};
 let timeout;
@@ -43,9 +71,9 @@ async function showDropdownOptions(text) {
     console.log(text);
     console.log(data);
     locationDropdown.innerHTML = '';
-    let optionsHtml = data.data.map(obj => `<button class="dropdownEntry">${obj.attributes.name}</button>`).join('');
+    let optionsHtml = data.data.map(obj => `<li class="dropdownEntry">${obj.attributes.name}</li>`).join('');
 
-    locationDropdown.innerHTML = optionsHtml;
+    locationDropdown.innerHTML = `<ul>${optionsHtml}</ul>`;
     document.querySelectorAll('.dropdownEntry').forEach(entry => entry.addEventListener('click',(e) => {
         
         //put target value into input box
@@ -150,10 +178,12 @@ deleteConfirm.addEventListener('click', async (e) => {
 })
 
 async function getDestinationImage() {
+    let location = locationInput.value.split(',').join(' ');
+    console.log(location)
     let response = await fetch('/pixabay', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({input: locationInput.value})
+        body: JSON.stringify({input: location})
     })
     let data = await response.json();
     //TODO: use prop image instead
@@ -175,8 +205,8 @@ function displayValuesInForm(collection) {
 function storeDestinationValues(collection) {
     previousEntry = {}
     for (let element of collection ) {
-        if(element.className === 'imageURL') previousEntry[element.className] = element.src;
-        else if (element.className !== "moreButton" && !(element.className.includes('moreWindow'))) {
+
+        if (element.className !== 'imageURL' && element.className !== "moreButton" && !(element.className.includes('moreWindow'))) {
             //save entry value to find in database later 
             previousEntry[element.className] = element.innerText;
         } 
