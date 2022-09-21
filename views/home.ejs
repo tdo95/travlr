@@ -22,6 +22,9 @@
 			<a href="">Logout</a>
 		</header>
 		<main>
+			<div class="pageContainer">
+
+			
 			<section class="homePage">
 				<h2>Destinations</h2>
 				<section class="savedDestinations">
@@ -51,9 +54,10 @@
 			<section class="explorePage">
 				<h2>Explore</h2>
 			</section>
+			</div>
 			<nav>
-				<button>Home</button>
-				<button>Explore</button>
+				<button class="homeButton">Home</button>
+				<button class="exploreButton">Explore</button>
 			</nav>
 		</main>
 		<section class="formScreen hidden">
@@ -62,9 +66,9 @@
 				<p class="newDestinationError"></p>
 				<form id="newDestination">
 					<label for="name">Trip Name</label>
-					<input type="text" name="name">
+					<input type="text" name="name" autocomplete="off">
 					<label for="location">Location</label>
-					<input class="locationInput" type="text" name="location" required>
+					<input class="locationInput" type="text" name="location" autocomplete="off" required>
 					<div class="locationDropdown"></div>
 					<div class="time">
 						<label for="month">Time</label>
