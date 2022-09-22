@@ -6,7 +6,7 @@
 ![Demo Image Gif](#)
 
 ## How it's made  🏗
-**Tech Used:** 
+**Tech Used:** HTML, EJS, CSS, JavaScript, Node, Express, Pixabay API, RoadGoat API
 
 ## Features 📱
 - 
@@ -17,4 +17,5 @@
 - It's important to trim values entered by a user before logging it in a database as the value returned from the database may not include the whitespace
 
 ## Future Improvements 📊
-- 
+- Optimize ellipis button to block all interaction until closed
+- Expand explore section support location lookup and browsing
