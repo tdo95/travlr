@@ -19,3 +19,4 @@
 ## Future Improvements 📊
 - Optimize ellipis button to block all interaction until closed
 - Expand explore section support location lookup and browsing
+- Allow users to unset month and year on cards
