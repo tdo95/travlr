@@ -180,7 +180,7 @@ deleteConfirm.addEventListener('click', async (e) => {
 async function getDestinationImage() {
     let location = locationInput.value.split(',').join(' ');
     console.log(location)
-    let response = await fetch('/pixabay', {
+    let response = await fetch('/unsplash', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({input: location})
@@ -188,7 +188,7 @@ async function getDestinationImage() {
     let data = await response.json();
     //TODO: use prop image instead
     if(data.error) return "";
-    else return data.largeImageURL;
+    else return data.urls.thumb;
 }
 
 //function populates clicked destination information in the popup window 

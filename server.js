@@ -51,18 +51,20 @@ app.post('/roadgoat', async (req, res) => {
     
 })
 //GET DESTINATION IMAGE
-app.post('/pixabay', async (req, res) => {
+app.post('/unsplash', async (req, res) => {
     console.log('GETTING IMAGE....')
     console.log(req.body)
-    fetch(`
-    https://pixabay.com/api/?key=${process.env.PIXABAY_KEY}&q=${req.body.input.slice(0,100)}&image_type=photo&category=travel`)
+    fetch(`https://api.unsplash.com/search/photos?query=${req.body.input}&client_id=${process.env.UNSPLASH_KEY}`)
     .then(response => response.json())
     //sends the first image obj in results
     .then(result => {
+        console.log(result);
+        console.log(process.env.UNSPLASH_KEY)
         
-        if (result.hits.length === 0) res.status(200).send({error: "No images found :("});
+        if (result.total && result.total != 0) res.status(200).send(result.results[0])
         else {
-            res.status(200).send(result.hits[0])
+            
+            res.status(200).send({error: "No images found :("});
         }
     })
     .catch(err => console.log(err));
