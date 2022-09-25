@@ -254,9 +254,27 @@ header .greeting {
      background-color: white;
      margin-left: auto;
 }
+.addNewButton::after {
+     content: "";
+     display: inline;
+}
+.addNewButton:hover::after {
+     content: " Add New";
+}
 .addNewButton:hover {
      background-color: rgba(41, 156, 79, 1);
      color: white;
+     animation: slideOut .5s forwards;
+}
+@keyframes slideOut {
+     0% {
+          font-size: 0rem;
+     }
+     100% {
+          width: 13rem; 
+          font-size: 1.3rem; 
+     }
+     
 }
 /********************** EXPOREPAGE STYLES *********************/
 /******************************************
