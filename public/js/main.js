@@ -188,7 +188,7 @@ async function getDestinationImage() {
     let data = await response.json();
     //TODO: use prop image instead
     if(data.error) return "";
-    else return data.urls.thumb;
+    else return data.urls.regular;
 }
 
 //function populates clicked destination information in the popup window 
@@ -196,20 +196,25 @@ function displayValuesInForm(collection) {
     //grab info from card and ppopulate in popup window
     for (let element of collection) {
         //skips edit button
-        if (element.className !== 'moreButton' && element.className !== 'imageURL' && !(element.className.includes('moreWindow'))) {
-            //populate infor in pop up window
-            document.querySelector(`[name="${element.className}"]`).value = element.innerText;
+        if (element.className.includes('cardDetails')) {
+            for (let child of element.children) {
+                //populate infor in pop up window
+                document.querySelector(`[name="${child.className}"]`).value = child.innerText;
+
+            }
         }
     }
 }
 function storeDestinationValues(collection) {
     previousEntry = {}
     for (let element of collection ) {
+        if (element.className.includes('cardDetails')) {
+            for (let child of element.children) {
+                //save entry value to find in database later 
+                previousEntry[child.className] = child.innerText;
 
-        if (element.className !== 'imageURL' && element.className !== "moreButton" && !(element.className.includes('moreWindow'))) {
-            //save entry value to find in database later 
-            previousEntry[element.className] = element.innerText;
-        } 
+            }
+        }
     }
     console.log(previousEntry)
 }
