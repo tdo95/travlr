@@ -111,6 +111,7 @@ viewButtons.forEach(button => button.addEventListener('click', () => {
     for (let prop in previousEntry) {
         let newNode = document.createElement('p');
         newNode.innerText = previousEntry[prop];
+        newNode.classList.add(prop);
         container.appendChild(newNode);
     }
     viewWindow.insertBefore(container, viewMoreWindow);
