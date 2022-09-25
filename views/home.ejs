@@ -25,7 +25,10 @@
 			<main>
 				<div class="pageContainer">
 					<section class="homePage">
-						<h2>Destinations</h2>
+						<div class="homeHeader">
+							<h2>Destinations</h2>
+							<button class="addNewButton" alt="Add new destination">+</button>
+						</div>
 						<section class="savedDestinations">
 							<!-- Iterate through each destination and load card in library -->
 							<% for (let i = 0; i < locations.length; i++) {%>
@@ -52,7 +55,6 @@
 									<img class="imageURL" src="<%= locations[i]['imageURL']%>" alt="Destination Image">
 								</div>
 							<% } %>
-							<button class="addNewButton">+</button>
 						</section>
 					</section>
 					<section class="explorePage">

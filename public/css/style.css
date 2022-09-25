@@ -91,6 +91,12 @@ footer {
      overflow-y: auto;
      overflow-x: hidden;
 }
+.homeHeader {
+     display: flex;
+     padding: 0 1rem;
+     align-items: center;
+     margin-bottom: 1rem;
+}
 header .greeting {
      margin-left: auto;
 }
@@ -240,13 +246,13 @@ header .greeting {
      /* background-color: blue; */
 }
 .addNewButton {
-     width: 6rem;
-     height: 6rem;
+     width: 4rem;
+     height: 4rem;
      border-radius: 5rem;
      border: none;
      font-size: 2.5rem;
      background-color: white;
-     vertical-align: middle;
+     margin-left: auto;
 }
 .addNewButton:hover {
      background-color: rgba(41, 156, 79, 1);
