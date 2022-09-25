@@ -101,9 +101,8 @@ header .greeting {
      margin-left: auto;
 }
 .formWindow, .viewWindow {
-     border: 1px solid black;
      width: 50%;
-     padding: 1rem;  
+     padding: 2.5rem;  
 }
 .formWindow form > * {
      display: block;
@@ -273,8 +272,120 @@ header .greeting {
      100% {
           width: 13rem; 
           font-size: 1.3rem; 
-     }
+     }    
+}
+.formScreen, .viewScreen {
+     position: absolute;
+     width: 100%;
+     height: 100%;
+     top: 0;
+     left: 0;
+     background-color: rgba(0,0,0,.5);
+}
+.formWindow, .viewWindow {
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -55%);
      
+     border-radius: .7rem;
+     z-index: 4;
+}
+.formWindow {
+     background-color: rgb(34, 34, 34);
+}
+.formWindow label, .formWindow .time {
+     margin-top: 1.8rem;
+}
+.formWindow label {
+     color: whitesmoke;
+     margin-bottom: .4rem;
+     font-weight: 700;
+     font-size: 1.8rem;
+}
+.formWindow input:not(#updateDestination, #addDestination), .formWindow textarea {
+     border: none;
+     border-radius: .5rem;
+     box-shadow: inset 0 0 6px 1px rgba(0,0,0,.3);
+     background-color: rgb(243, 243, 243);
+     outline: none;
+     padding: 1rem;
+}
+.formWindow select {
+     border: none;
+     padding: .4rem;
+     border-radius: .5rem;
+     margin-left: .5rem;
+     box-shadow: inset 0 0 1px 1px rgba(0,0,0,.3);
+     outline: none;
+     background-color: rgb(243, 243, 243);
+
+}
+.tripName, .locationInput {
+     height: 3rem;
+}
+
+.formWindow .tripLabel {
+     margin-top: 2.5rem;
+}
+#updateDestination, #addDestination {
+     border: none;
+     background-color: rgba(41, 156, 79, 1);
+     font-weight: 900;
+     border-radius: 2rem;
+     color: white;
+     padding: .6rem 2rem;
+     position: relative;
+     margin-top: 2rem;
+     left: 37%;
+}
+#updateDestination:hover, #addDestination:hover {
+     color: black;
+}
+.closeForm {
+     color: white;
+     background: url('https://img.icons8.com/ios-filled/50/FFFFFF/delete-sign--v2.png') no-repeat;
+     background-size: contain;
+     display: block;
+     border: none;
+     position: absolute;
+     right: 2rem;
+     padding: 1rem;
+
+}
+
+.formWindow .locationDropdown {
+     background-color: rgba(215, 234, 218, 1);
+     position: absolute;
+     width: 80%;
+     left: 50%;
+     transform: translateX(-50%);
+
+}
+.locationDropdown ul {
+     padding: 0 2.5rem;
+}
+.locationDropdown li {
+     list-style: none;
+     padding: .5rem 0;
+     /* color: rgb(34, 34, 34); */
+     color: black;
+     font-weight: 700;
+}
+.locationDropdown li:hover {
+     color: rgba(41, 156, 79, 1);
+}
+.viewWindow {
+     background-color: white;
+}
+.viewWindow .closeForm {
+     background: url('https://img.icons8.com/ios-filled/50/000000/delete-sign--v2.png') no-repeat; 
+     background-size: contain;
+
+}
+.closeForm:hover {
+     background: url('https://img.icons8.com/ios-filled/50/299C4F/delete-sign--v2.png') no-repeat; 
+     background-size: contain;
 }
 /********************** EXPOREPAGE STYLES *********************/
 /******************************************

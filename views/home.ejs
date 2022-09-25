@@ -71,12 +71,12 @@
 
 		</section>
 	
-		<section class="formScreen">
+		<section class="formScreen hidden">
 			<section class="formWindow">
-				<p class="closeForm">x</p>
+				<button class="closeForm"></button>
 				<p class="newDestinationError"></p>
 				<form id="newDestination">
-					<label for="name">Trip Name</label>
+					<label class="tripLabel" for="name">Trip Name</label>
 					<input class="tripName" type="text" name="name" autocomplete="off">
 					<label for="location">Location</label>
 					<input class="locationInput" type="text" name="location" autocomplete="off" required>
@@ -110,15 +110,15 @@
 				</form>
 			</section>
 		</section>
-		<section class="viewScreen hidden">
+		<section class="viewScreen">
 			
 			<section class="viewWindow">
-				<span class="closeView">x</span>
+				<button class="closeForm closeView"></button>
 				<div class="moreWindow hidden">
 					<button class="edit">Edit</button>
 					<button class="delete">Delete</button>
 				</div>
-				<button class="moreButton">. . .</button>
+				<button class="moreButton"></button>
 			</section>
 		</section>
 		
