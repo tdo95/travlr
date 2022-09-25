@@ -14,52 +14,61 @@
 		<link rel="stylesheet" href="css/normalize.css">
 		<link rel="stylesheet" href="css/style.css">
 	</head>
-	<body>
-		<header>
-			<h1>Travlr</h1>
-			<span class="greeting">Hi, Tee</span>
-			<img src="" alt="">
-			<a href="">Logout</a>
-		</header>
-		<main>
-			<div class="pageContainer">
-
-			
-			<section class="homePage">
-				<h2>Destinations</h2>
-				<section class="savedDestinations">
-					<!-- Iterate through each destination and load card in library -->
-					<% for (let i = 0; i < locations.length; i++) {%>
-						<div class="destinationCard">
-							<div class="moreWindow hidden">
-								<button class="view">View</button>	
-								<button class="edit">Edit</button>
-								<button class="delete">Delete</button>
-							</div>
-							<button class="moreButton">. . .</button>
-							<% for (let field in locations[i]) {%>
-								<% if (field === "imageURL") {%>
-									<img class="imageURL" src="<%= locations[i][field]%>" alt="">
-								
-								<% } else if (locations[i][field] && field !== "_id") {%>
-									<p class="<%= field %>"><%= locations[i][field]%></p>
-								<%}%>
+	<body> 
+		<section class="mainScreen">
+			<header>
+				<h1>Travlr</h1>
+				<span class="greeting">Hi, Tee</span>
+				<img src="" alt="">
+				<a href="">Logout</a>
+			</header>
+			<main>
+				<div class="pageContainer">
+					<section class="homePage">
+						<h2>Destinations</h2>
+						<section class="savedDestinations">
+							<!-- Iterate through each destination and load card in library -->
+							<% for (let i = 0; i < locations.length; i++) {%>
+								<div class="destinationCard">
+									<div class="moreWindow hidden">
+										<button class="view">View</button>	
+										<button class="edit">Edit</button>
+										<button class="delete">Delete</button>
+									</div>
+									<button class="moreButton"></button>
+									
+									<div class="cardDetails">
+										<% if (!locations[i]['name']) {%>
+											<p class="name"><%= locations[i]['location'].split(',')[0] %></p>
+										
+										<%}%>
+										<% for (let field in locations[i]) {%>
+											<% if (locations[i][field] && field !== "_id" && field !== "imageURL") {%>
+												<p class="<%= field %>"><%= locations[i][field]%></p>
+											
+											<%}%>
+										<% } %>	
+									</div>
+									<img class="imageURL" src="<%= locations[i]['imageURL']%>" alt="Destination Image">
+								</div>
 							<% } %>
-							
-						</div>
-					<% } %>
-					<button class="addNewButton">+</button>
-				</section>
-			</section>
-			<section class="explorePage">
-				<h2>Explore</h2>
-			</section>
-			</div>
+							<button class="addNewButton">+</button>
+						</section>
+					</section>
+					<section class="explorePage">
+						<h2>Explore</h2>
+					</section>
+				</div>
+			</main>
+
+
 			<nav>
 				<button class="homeButton">Home</button>
 				<button class="exploreButton">Explore</button>
 			</nav>
-		</main>
+
+		</section>
+	
 		<section class="formScreen hidden">
 			<section class="formWindow">
 				<p class="closeForm">x</p>
