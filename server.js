@@ -123,8 +123,8 @@ app.put('/home', (req, res) => {
     })
     .toArray()
     .then(data => {
-        //if there are no entries then perform update
-        if (data.length === 0) {
+        //if entry found then perform update
+        if (data.length !== 0) {
 
             db.collection('destinations').findOneAndUpdate(req.body.previous, {
                 $set: req.body.new
@@ -136,11 +136,11 @@ app.put('/home', (req, res) => {
             .catch(err => console.log(err));
 
         }
-        //if there is a pre-existing entry, send an error
+        //if there are no entries found to update send an error
         else {
-            console.log('Destination already exists');
+            console.log('Could not find entry to Update');
             res.status(400).send({
-                error: 'The destination you are trying to create already exists. Please create a unique entry'
+                error: 'The entry you are trying to update cannot be found. Please try again later'
             })
         }
     })
