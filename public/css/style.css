@@ -30,10 +30,12 @@ html, body {
 }
 
 body {
-     padding: 1rem;
+     padding: 2rem;
      font-size: 1.6rem;
 }
-
+h1 {
+     margin: 0;
+}
 
 /******************************************
 /* LAYOUT
@@ -62,17 +64,64 @@ footer {
      height: 100%;
 }
 .mainScreen header {
-     flex: 0 1 5rem;
+     flex: 0 1 4rem;
      display: flex;
      align-items: center;
      padding: 0 1rem;
+     margin-bottom: 1.5rem;
 }
 .mainScreen main {
      flex: 1 1 auto;
      overflow: hidden;
 }
 .mainScreen nav {
-     flex: 0 1 10rem;
+     width: 60%;
+     align-self: center;
+     margin-top: 1rem;
+     flex: 0 1 7rem;
+     background-color: rgb(20, 20, 20);
+     border-radius: 5rem;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     column-gap: 2rem;
+     /* font-family: Arial, Helvetica, sans-serif; */
+}
+.mainScreen nav > * {
+     border: none;
+     background-color: transparent;
+     color: white;
+     font-weight: 700;
+     font-size: 1.6rem;
+     padding-top: 1rem;
+     padding-bottom: 1rem;
+}
+.homeButton {
+     background: url('https://img.icons8.com/ios/50/FFFFFF/home--v3.png') no-repeat;
+     background-size: 25%;
+     padding-left: 3rem;
+     background-position: 0 7px;
+}
+.homeButton:hover {
+     
+     border-bottom: 1px solid white;
+     /* color:rgba(41, 156, 79, 1);
+
+     background: url('https://img.icons8.com/ios/50/299C4C/home--v3.png') no-repeat;
+     background-size: 25%;
+     padding-left: 3rem;
+     background-position: 0 7px; */
+
+     /* background-color: white; */
+}
+.homeButton:focus {
+     border-bottom: 1px solid white;
+}
+.exploreButton {
+     background: url('https://img.icons8.com/ios/50/FFFFFF/compass--v1.png') no-repeat;
+     background-size: 23%;
+     padding-left: 3rem;
+     background-position: 0 7px;
 }
 .pageContainer {
      width: 200%;
@@ -148,11 +197,11 @@ header .greeting {
 .cardDetails p {
      margin: 0 0 1rem 0;
 }
-.cardDetails .name {
+.name {
      font-size: 1.8rem;
      font-weight: 700;  
 }
-.cardDetails .month, .cardDetails .year {
+.month, .year {
      display: inline-block;
      margin: 0;
      background-color: rgba(41, 156, 79, .2);
@@ -161,7 +210,7 @@ header .greeting {
      padding: .3rem .5rem;
      border-radius: .4rem;
 }
-.cardDetails .location {
+.location {
      background: url("https://img.icons8.com/material-rounded/24/299C4F/marker.png") no-repeat;
      background-position: -3px -2px;
      background-size: 18px;
@@ -263,7 +312,7 @@ header .greeting {
 .addNewButton:hover {
      background-color: rgba(41, 156, 79, 1);
      color: white;
-     animation: slideOut .5s forwards;
+     animation: slideOut .3s forwards;
 }
 @keyframes slideOut {
      0% {
@@ -274,25 +323,26 @@ header .greeting {
           font-size: 1.3rem; 
      }    
 }
-.formScreen, .viewScreen {
+.formScreen, .viewScreen, .deleteScreen {
      position: absolute;
      width: 100%;
      height: 100%;
      top: 0;
      left: 0;
      background-color: rgba(0,0,0,.5);
+     z-index: 4;
 }
-.formWindow, .viewWindow {
+.formWindow, .viewWindow, .confirmWindow {
      position: absolute;
      top: 50%;
      left: 50%;
      transform: translate(-50%, -55%);
      
      border-radius: .7rem;
-     z-index: 4;
 }
 .formWindow {
-     background-color: rgb(34, 34, 34);
+     z-index: 5;
+     background-color: rgb(20, 20, 20);
 }
 .formWindow label, .formWindow .time {
      margin-top: 1.8rem;
@@ -375,13 +425,72 @@ header .greeting {
 .locationDropdown li:hover {
      color: rgba(41, 156, 79, 1);
 }
+.newDestinationError {
+     color: rgba(41, 156, 79, 1);
+}
 .viewWindow {
      background-color: white;
+     width: 65%;
+     max-width: 40rem;
+     padding-top: 1.5rem;
+     z-index: 4;
 }
 .viewWindow .closeForm {
      background: url('https://img.icons8.com/ios-filled/50/000000/delete-sign--v2.png') no-repeat; 
      background-size: contain;
+}
+.viewWindow .name {
+     font-size: 2.5rem;
+     margin: 1.5rem 0;
+}
+.viewWindow .month, .viewWindow .year {
+     margin-right: 1rem;
+     margin-bottom: 1rem;
+}
+.viewWindow .notes {
+     
+     max-height: 10rem;
+     overflow-y: auto;
+}
+.viewWindow .imageURL {
+     width: 100%;
+     max-width: 40rem;
+     margin-top: 3rem;
+}
+.viewWindow .moreWindow {
+     left: 20%;
+     height: 7rem;
+}
 
+.confirmWindow {
+     background-color: white;
+     padding: 1.5rem;
+     text-align: center;
+     font-weight: 600;
+}
+.confirmWindow .deleteCancel, .confirmWindow .deleteConfirm {
+     border: none;
+     background-color: white;
+     padding: .5rem 2rem;
+     border-radius: 2rem;
+}
+.confirmWindow .deleteConfirm {
+     background-color: rgba(41, 156, 79, 1);
+     color: white;
+}
+.confirmWindow .deleteConfirm:hover {
+     background-color: rgba(41, 156, 79, .4);
+}
+.confirmWindow .deleteCancel {
+     outline: 1px solid black;
+     padding: .5rem 1.5rem;
+}
+.confirmWindow .deleteCancel:hover {
+     background-color: black;
+     color: white;
+}
+.confirmWindow p {
+     font-size: 1.9rem;
 }
 .closeForm:hover {
      background: url('https://img.icons8.com/ios-filled/50/299C4F/delete-sign--v2.png') no-repeat; 

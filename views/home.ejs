@@ -44,13 +44,26 @@
 										<% if (!locations[i]['name']) {%>
 											<p class="name"><%= locations[i]['location'].split(',')[0] %></p>
 										
+										<%} else {%>
+											<p class="name"><%= locations[i]['name'] %></p>
 										<%}%>
-										<% for (let field in locations[i]) {%>
-											<% if (locations[i][field] && field !== "_id" && field !== "imageURL") {%>
-												<p class="<%= field %>"><%= locations[i][field]%></p>
-											
-											<%}%>
-										<% } %>	
+										<% if (locations[i]['location']) {%>
+											<p class="location"><%= locations[i]['location']%></p>
+										
+										<%}%>
+										<% if (locations[i]['month']) {%>
+											<p class="month"><%= locations[i]['month']%></p>
+										
+										<%}%>
+										<% if (locations[i]['year']) {%>
+											<p class="year"><%= locations[i]['year']%></p>
+										
+										<%}%>
+										<% if (locations[i]['notes']) {%>
+											<p class="notes hidden"><%= locations[i]['notes']%></p>
+										
+										<%}%>
+									
 									</div>
 									<img class="imageURL" src="<%= locations[i]['imageURL']%>" alt="Destination Image">
 								</div>
@@ -110,7 +123,7 @@
 				</form>
 			</section>
 		</section>
-		<section class="viewScreen">
+		<section class="viewScreen hidden">
 			
 			<section class="viewWindow">
 				<button class="closeForm closeView"></button>
@@ -122,8 +135,9 @@
 			</section>
 		</section>
 		
-		<section class="confirmScreen hidden">
+		<section class="deleteScreen hidden">
 			<div class="confirmWindow">
+				<p class="deleteError"></p>
 				<p>Are you sure you want to delete this destination?</p>
 				<button class="deleteCancel">Cancel</button>
 				<button class="deleteConfirm">Yes</button>

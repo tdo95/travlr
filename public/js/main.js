@@ -1,3 +1,4 @@
+//Look... I know it's alot 😅 Cluttering the namespace and what not. I'll figure out how to handle this better 
 const yearSelect = document.querySelector('#year');
 const newDestinationForm = document.querySelector('#newDestination');
 const addDestinationButton = document.querySelector('#addDestination');
@@ -16,7 +17,8 @@ const closeForm = document.querySelector('.closeForm')
 const addNewButton = document.querySelector('.addNewButton');
 const deleteConfirm = document.querySelector('.deleteConfirm');
 const deleteCancel = document.querySelector('.deleteCancel');
-const confirmScreen = document.querySelector('.confirmScreen');
+const deleteError = document.querySelector('.deleteError');
+const deleteScreen = document.querySelector('.deleteScreen');
 const locationInput = document.querySelector('.locationInput');
 const locationDropdown = document.querySelector('.locationDropdown');
 const homePage = document.querySelector('.homePage');
@@ -75,7 +77,6 @@ async function showDropdownOptions(text) {
 
     locationDropdown.innerHTML = `<ul>${optionsHtml}</ul>`;
     document.querySelectorAll('.dropdownEntry').forEach(entry => entry.addEventListener('click',(e) => {
-        
         //put target value into input box
         locationInput.value = e.target.innerText;
         console.log('click event!', e.target.innerText)
@@ -86,6 +87,9 @@ async function showDropdownOptions(text) {
 
 
 addNewButton.addEventListener('click', () => {
+    //hide any other screens that may be open
+    hideScreens()
+
     //unhide add button and hide update button on form
     addDestinationButton.classList.remove('hidden');
     updateDestinationButton.classList.add('hidden');
@@ -101,13 +105,24 @@ closeForm.addEventListener('click', () => {
 closeView.addEventListener('click', () => {
     //hide screen 
     viewScreen.classList.add('hidden');
+    console.log('closing view screen ... should remove details ')
     //remove details from view box
     document.querySelector('.destinationDetails').remove();
+    console.log(document.querySelector('.destinationDetails'))
 }) 
-viewButtons.forEach(button => button.addEventListener('click', () => {
+viewButtons.forEach(button => button.addEventListener('click', (e) => {
+    //hide any other screens that may be open
+    hideScreens()
+
     //add stored values to view Window
     let container = document.createElement('div');
     container.classList.add('destinationDetails');
+    //add image
+    let img = e.target.parentNode.parentNode.querySelector('.imageURL').cloneNode(true);
+    img.classList.add('imageURL');
+    console.log(img)
+    container.appendChild(img);
+    //add remaining elements
     for (let prop in previousEntry) {
         let newNode = document.createElement('p');
         newNode.innerText = previousEntry[prop];
@@ -115,25 +130,30 @@ viewButtons.forEach(button => button.addEventListener('click', () => {
         container.appendChild(newNode);
     }
     viewWindow.insertBefore(container, viewMoreWindow);
+    
     //unhide view window
     viewScreen.classList.remove('hidden');
 }))
 moreButtons.forEach(button => button.addEventListener('click', (event) => {
+    let parent = event.target.parentNode;
     //grab window
-    let window = event.target.parentNode.querySelector('.moreWindow');
+    let window = parent.querySelector('.moreWindow');
 
     //if window is hidden
     if (window.classList.contains('hidden')) {
-        //store destination values
-        storeDestinationValues(event.target.parentNode.children);
+        if (parent.className.includes('destinationCard')) {
+            //clear previous entry 
+            previousEntry = {};
+            //store destination values
+            storeDestinationValues(event.target.parentNode.children);
+        }
         //unhide window
         window.classList.remove('hidden');
     }
     else {
         //just hide window
         window.classList.add('hidden');
-        //clear previous entry 
-        previousEntry = {};
+        
     }
 }))
 addDestinationButton.addEventListener('click', async () => {
@@ -162,20 +182,24 @@ editButtons.forEach(button => button.addEventListener('click', async () => {
     //unhide add button and hide update button on form
     addDestinationButton.classList.add('hidden');
     updateDestinationButton.classList.remove('hidden');
+    //hide any other screens that may be open
+    hideScreens()
     //open form
     formScreen.classList.remove('hidden');
 }))
-deleteButtons.forEach(button => button.addEventListener('click', async () => { 
+deleteButtons.forEach(button => button.addEventListener('click', async () => {
+    //hide any other screens that may be open
+    hideScreens() 
     //open confirm window
-    confirmScreen.classList.remove('hidden');
+    deleteScreen.classList.remove('hidden');
 }))
 deleteCancel.addEventListener('click', () => {
     //close confirm window
-    confirmScreen.classList.add('hidden');
+    deleteScreen.classList.add('hidden');
 })
 deleteConfirm.addEventListener('click', async (e) => {
     
-    await sendRequest('DELETE', previousEntry, '/home', newDestinationError);
+    await sendRequest('DELETE', previousEntry, '/home', deleteError);
 })
 
 async function getDestinationImage() {
@@ -212,7 +236,7 @@ function storeDestinationValues(collection) {
         if (element.className.includes('cardDetails')) {
             for (let child of element.children) {
                 //save entry value to find in database later 
-                previousEntry[child.className] = child.innerText;
+                previousEntry[child.className.split(' ')[0]] = child.innerText;
 
             }
         }
@@ -272,6 +296,11 @@ function resetForm(formItems) {
         else if (field.name !== "add" && field.name !== "update") field.value = "";
     }
     newDestinationError.innerText = ""; 
+}
+function hideScreens() {
+    formScreen.classList.add('hidden');
+    viewScreen.classList.add('hidden');
+    deleteScreen.classList.add('hidden');
 }
 function clearStoredDestination() {
     previousEntry = {};
