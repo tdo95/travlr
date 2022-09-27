@@ -28,8 +28,6 @@ const homeButton = document.querySelector('.homeButton');
 const exploreButton = document.querySelector('.exploreButton');
 const formItems = Object.values(newDestinationForm);
 
-
-
 //home and explore page toggle TODO: refractor into one function
 homeButton.addEventListener('click', () => {
     if(pageContainer.classList.contains('exploreOpen')) {
@@ -48,8 +46,6 @@ exploreButton.addEventListener('click', () => {
     }
 })
 
-
-
 //stores entry information prior to edit
 let previousEntry = {};
 let timeout;
@@ -63,6 +59,7 @@ formScreen.addEventListener('click', (e) => {
     //clear options
     locationDropdown.innerHTML = '';
 })
+
 async function showDropdownOptions(text) {
     let response = await fetch('/roadgoat', {
         method: 'POST',
@@ -73,7 +70,7 @@ async function showDropdownOptions(text) {
     console.log(text);
     console.log(data);
     locationDropdown.innerHTML = '';
-    let optionsHtml = data.data.map(obj => `<li class="dropdownEntry">${obj.attributes.name}</li>`).join('');
+    let optionsHtml = data.data.slice(0,8).map(obj => `<li class="dropdownEntry">${obj.attributes.name}</li>`).join('');
 
     locationDropdown.innerHTML = `<ul>${optionsHtml}</ul>`;
     document.querySelectorAll('.dropdownEntry').forEach(entry => entry.addEventListener('click',(e) => {
@@ -197,6 +194,8 @@ deleteButtons.forEach(button => button.addEventListener('click', async () => {
 deleteCancel.addEventListener('click', () => {
     //close confirm window
     deleteScreen.classList.add('hidden');
+    //clears any error message
+    deleteError.innerText = "";
 })
 deleteConfirm.addEventListener('click', async (e) => {
     
@@ -204,7 +203,7 @@ deleteConfirm.addEventListener('click', async (e) => {
 })
 
 async function getDestinationImage() {
-    let location = locationInput.value.split(',').join(' ');
+    let location = locationInput.value.split(',')[0];
     console.log(location)
     let response = await fetch('/unsplash', {
         method: 'POST',
@@ -244,7 +243,6 @@ function storeDestinationValues(collection) {
                     //save entry value to find in database later 
                     previousEntry[child.className.split(' ')[0]] = child.innerText;
                 }
-
             }
         }
     }
@@ -266,11 +264,16 @@ function populateYears() {
 function createRequestBody(formItems) {
     let body = {};
     for (let field of formItems) {
-        if (field.name && field.name !== "update" && field.name !== "add") body[field.name] = field.value.trim();
+        if (field.name && field.name !== "update" && field.name !== "add") {
+            //add location as name if no name provided
+            if(field.name === "name" && !field.value) {
+                body[field.name] = document.querySelector('.locationInput').value.split(',')[0].trim();
+            }
+            else body[field.name] = field.value.trim();
+        }
     }
     return body;
 }
-
 
 async function sendRequest(method, body, route, errorLocation) {
     let response = await fetch(route, {
@@ -279,6 +282,7 @@ async function sendRequest(method, body, route, errorLocation) {
         body: JSON.stringify(body)
     })
     let data = await response.json();
+    console.log(data)
 
     //check for error 
     if (data.error)
@@ -296,7 +300,8 @@ function resetForm(formItems) {
         }
         else if (field.name !== "add" && field.name !== "update") field.value = "";
     }
-    newDestinationError.innerText = ""; 
+    newDestinationError.innerText = "";
+    deleteError.innerText = ""; 
 }
 function hideScreens() {
     formScreen.classList.add('hidden');
