@@ -2,7 +2,7 @@ require('dotenv').config();
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const express = require('express');
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 8000;
 const MongoClient = require('mongodb').MongoClient;
 
 let mongoConnectionString = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.vytxyy3.mongodb.net/?retryWrites=true&w=majority`;
