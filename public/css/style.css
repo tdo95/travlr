@@ -311,11 +311,8 @@ header .greeting {
      padding: .5rem;
      border-radius: 1rem;
      background-color: white;
-     /* flex-direction: row-reverse; */
-     /* width: 20rem; */
-    width: 30rem;
+    /* width: 30rem; */
     height: 11rem;
-    /* box-shadow: 0 0 15px 0px rgba(89, 88, 88, .3); */
 }
 .destinationCard, .viewWindow {
      position: relative;
@@ -570,9 +567,6 @@ header .greeting {
 .locationDropdown li:hover {
      color: rgba(41, 156, 79, 1);
 }
-.newDestinationError {
-     color: rgba(41, 156, 79, 1);
-}
 .viewWindow {
      background-color: white;
      width: 65%;
@@ -629,6 +623,7 @@ header .greeting {
 .confirmWindow .deleteCancel {
      outline: 1px solid black;
      padding: .5rem 1.5rem;
+     margin-right: 1rem;
 }
 .confirmWindow .deleteCancel:hover {
      background-color: black;
@@ -637,11 +632,20 @@ header .greeting {
 .confirmWindow p {
      font-size: 1.9rem;
 }
+.deleteError, .newDestinationError {
+     font-size: 1.5rem;
+     color: red;
+     font-weight: 400;
+}
 .closeForm:hover {
      background: url('https://img.icons8.com/ios-filled/50/299C4F/delete-sign--v2.png') no-repeat; 
      background-size: contain;
 }
-/********************** EXPOREPAGE STYLES *********************/
+/* ********************************************************************************************************************** */
+/* EXPOREPAGE STYLES */
+/* ********************************************************************************************************************** */
+
+
 .explorePage::-webkit-scrollbar, .homePage::-webkit-scrollbar {
      background: transparent;
      width: 10px; 
