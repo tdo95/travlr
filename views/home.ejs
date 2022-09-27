@@ -46,11 +46,9 @@
 									<button class="moreButton"></button>
 									
 									<div class="cardDetails">
-										<% if (!locations[i]['name']) {%>
-											<p class="name"><%= locations[i]['location'].split(',')[0] %></p>
-										
-										<%} else {%>
+										<% if (locations[i]['name']) {%>
 											<p class="name"><%= locations[i]['name'] %></p>
+											
 										<%}%>
 										<% if (locations[i]['location']) {%>
 											<p class="location"><%= locations[i]['location']%></p>
@@ -225,7 +223,7 @@
 							<option value="June">June</option>
 							<option value="July">July</option>
 							<option value="August">August</option>
-							<option value="Septembr">Septembr</option>
+							<option value="September">September</option>
 							<option value="October">October</option>
 							<option value="November">November</option>
 							<option value="Decemeber">Decemeber</option>
