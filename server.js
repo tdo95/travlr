@@ -54,7 +54,7 @@ app.post('/roadgoat', async (req, res) => {
 app.post('/unsplash', async (req, res) => {
     console.log('GETTING IMAGE....')
     console.log(req.body)
-    fetch(`https://api.unsplash.com/search/photos?query=${req.body.input}&client_id=${process.env.UNSPLASH_KEY}`)
+    fetch(`https://api.unsplash.com/search/photos?query=${req.body.input}&orientation=landscape&client_id=${process.env.UNSPLASH_KEY}`)
     .then(response => response.json())
     //sends the first image obj in results
     .then(result => {
@@ -123,8 +123,8 @@ app.put('/home', (req, res) => {
     })
     .toArray()
     .then(data => {
-        //if entry found then perform update
-        if (data.length !== 0) {
+        //if entry doesnt exist add new entry
+        if (data.length === 0) {
 
             db.collection('destinations').findOneAndUpdate(req.body.previous, {
                 $set: req.body.new
@@ -136,11 +136,11 @@ app.put('/home', (req, res) => {
             .catch(err => console.log(err));
 
         }
-        //if there are no entries found to update send an error
+        //if entry exists send an error
         else {
             console.log('Could not find entry to Update');
             res.status(400).send({
-                error: 'The entry you are trying to update cannot be found. Please try again later'
+                error: 'The destination you are trying to update to already exists. Please enter a unique entry'
             })
         }
     })
