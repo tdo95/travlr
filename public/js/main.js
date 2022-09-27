@@ -1,4 +1,4 @@
-//Look... I know it's alot 😅 Cluttering the namespace and what not. I'll figure out how to handle this better 
+//Look... I know... it's alot 😅 Cluttering the namespace and what not. I'll figure out how to handle this better 
 const yearSelect = document.querySelector('#year');
 const newDestinationForm = document.querySelector('#newDestination');
 const addDestinationButton = document.querySelector('#addDestination');
@@ -179,6 +179,7 @@ editButtons.forEach(button => button.addEventListener('click', async () => {
     resetForm(formItems);
     //display entries in form 
     displayValuesInForm(button.parentNode.parentNode.children)
+    console.log(button.parentNode.parentNode.children)
     //unhide add button and hide update button on form
     addDestinationButton.classList.add('hidden');
     updateDestinationButton.classList.remove('hidden');
@@ -218,13 +219,17 @@ async function getDestinationImage() {
 
 //function populates clicked destination information in the popup window 
 function displayValuesInForm(collection) {
+    console.log(collection)
     //grab info from card and ppopulate in popup window
     for (let element of collection) {
         //skips edit button
-        if (element.className.includes('cardDetails')) {
+        if (element.className.includes('cardDetails') || element.className.includes('destinationDetails')) {
             for (let child of element.children) {
                 //populate infor in pop up window
-                document.querySelector(`[name="${child.className}"]`).value = child.innerText;
+                console.log(child);
+                if( !child.className.includes('imageURL') ) {
+                    document.querySelector(`[name="${child.className.split(' ')[0]}"]`).value = child.innerText;
+                }
 
             }
         }
@@ -233,22 +238,18 @@ function displayValuesInForm(collection) {
 function storeDestinationValues(collection) {
     previousEntry = {}
     for (let element of collection ) {
-        if (element.className.includes('cardDetails')) {
+        if (element.className.includes('cardDetails') || element.className.includes('destinationDetails')) {
             for (let child of element.children) {
-                //save entry value to find in database later 
-                previousEntry[child.className.split(' ')[0]] = child.innerText;
+                if(!child.className.includes('imageURL')){
+                    //save entry value to find in database later 
+                    previousEntry[child.className.split(' ')[0]] = child.innerText;
+                }
 
             }
         }
     }
     console.log(previousEntry)
 }
-
-
-
-
-
-populateYears();
 
 //Fill in years on year select form within the add and edit destination forms
 function populateYears() {
@@ -319,3 +320,8 @@ function validateForm() {
     }
     return true;
 }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////RUN IMMEDIATELY TO POPULATE YEARS IN FORM
+populateYears();

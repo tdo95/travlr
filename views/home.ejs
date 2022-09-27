@@ -6,9 +6,14 @@
     	<meta name="keywords" content="one, two, three">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<meta property="og:image" content="" />
-		<link rel="icon" type="image/png" href="">
+		<link rel="icon" type="image/png" href="https://img.icons8.com/external-prettycons-solid-prettycons/60/000000/external-world-travel-prettycons-solid-prettycons-1.png">
 
 		<title>Travlr</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Reem+Kufi+Ink&display=swap" rel="stylesheet">
+
 
 		<!-- external CSS link -->
 		<link rel="stylesheet" href="css/normalize.css">
@@ -16,11 +21,11 @@
 	</head>
 	<body> 
 		<section class="mainScreen">
-			<header>
+			<header class="mainHeader">
 				<h1>Travlr</h1>
 				<span class="greeting">Hi, Tee</span>
-				<img src="" alt="">
-				<a href="">Logout</a>
+				<img src="assets/IMG_0073_4.jpg" alt="">
+				<a href="/"><button class="logout">Logout</button></a>
 			</header>
 			<main>
 				<div class="pageContainer">
@@ -71,15 +76,130 @@
 						</section>
 					</section>
 					<section class="explorePage">
-						<h2>Explore</h2>
+						<header>
+							<h2>Explore</h2>
+							<input class="exploreSearch" type="text" placeholder="Search">
+						</header>
+						<section class="exploreContainer">
+							<section class="exploreCards">
+								<section class="catagories">
+									<h3>Catagories</h3>
+									<section class="catagoriesContainer">
+										<div class="catagoryBtn">
+											<div class="imgContainer">
+												<img src="https://images.unsplash.com/photo-1559767180-47d8f4919e5d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjYyNjh8MHwxfHNlYXJjaHw2fHxkZXNlcnR8ZW58MHx8fHwxNjY0MjA5Njky&ixlib=rb-1.2.1&q=80&w=200" alt="Desert">
+											</div>
+											<span>Desert</span>
+										</div>
+										<div class="catagoryBtn">
+											<div class="imgContainer">
+												<img src="https://images.unsplash.com/photo-1585328000852-779be6a6582b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjYyNjh8MHwxfHNlYXJjaHwyfHxncmVlbiUyMGxlYXZlc3xlbnwwfHx8fDE2NjQyMjAzMjk&ixlib=rb-1.2.1&q=80&w=200" alt="Nature">
+											</div>
+											<span>Nature</span>
+										</div>
+										<div class="catagoryBtn">
+											<div class="imgContainer">
+												<img src="https://images.unsplash.com/photo-1565643355044-000fbad87cc5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjYyNjh8MHwxfHNlYXJjaHw0fHx3YXZlc3xlbnwwfHx8fDE2NjQyMjE5Nzc&ixlib=rb-1.2.1&q=80&w=200" alt="Beach">
+											</div>
+											<span>Beach</span>
+										</div>
+										<div class="catagoryBtn">
+											<div class="imgContainer">
+												<img src="https://images.unsplash.com/photo-1570641963303-92ce4845ed4c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjYyNjh8MHwxfHNlYXJjaHw3fHxtb3VudGFpbnN8ZW58MHx8fHwxNjY0MjIxMDI3&ixlib=rb-1.2.1&q=80&w=200" alt="Mountains">
+											</div>
+											<span>Mountains</span>
+										</div>
+										<div class="catagoryBtn">
+											<div class="imgContainer">
+												<img src="https://images.unsplash.com/photo-1561571994-3c61c554181a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjYyNjh8MHwxfHNlYXJjaHwzfHx0cm9waWNhbHxlbnwwfHx8fDE2NjQyMjIyNDk&ixlib=rb-1.2.1&q=80&w=200" alt="Tropical">
+											</div>
+											<span>Tropical</span>
+										</div>
+										
+									</section>
+									
+								</section>
+								<section class="featured"> 
+									<h3>Featured</h3>
+									<section class="featuredContainer">
+										<div class="featuredCard">
+											<div class="featuredImg"><img src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjYyNjh8MHwxfHNlYXJjaHwxfHxiYW5na29rfGVufDB8fHx8MTY2NDIxOTkyNg&ixlib=rb-1.2.1&q=80&w=1080" alt="Bangkok"></div>
+
+											<p class="featuredName">Bangkok</p>
+											<p class="location">Bangkok, Thailand</p>
+										</div>
+										<div class="featuredCard">
+											<div class="featuredImg"><img src="https://images.unsplash.com/photo-1594538756542-8c88bda491c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjYyNjh8MHwxfHNlYXJjaHwxMHx8bGFnb3N8ZW58MHx8fHwxNjY0MjExMjk4&ixlib=rb-1.2.1&q=80&w=1080" alt="Lagos"></div>
+
+											<p class="featuredName">Lagos</p>
+											<p class="location">Lagos, Nigeria</p>
+										</div>
+										<div class="featuredCard">
+											<div class="featuredImg"><img src="https://images.unsplash.com/photo-1496372412473-e8548ffd82bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjYyNjh8MHwxfHNlYXJjaHwxfHxJbmRpYXxlbnwwfHx8fDE2NjQwNjI0OTc&ixlib=rb-1.2.1&q=80&w=1080" alt="New Deli"></div>
+
+											<p class="featuredName">New Deli</p>
+											<p class="location">New Deli, India</p>
+										</div>
+										<div class="featuredCard">
+											<div class="featuredImg"><img src="https://images.unsplash.com/photo-1560969184-10fe8719e047?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjYyNjh8MHwxfHNlYXJjaHwyfHxiZXJsaW58ZW58MHx8fHwxNjY0MjM4MzM4&ixlib=rb-1.2.1&q=80&w=1080" alt="New Deli"></div>
+
+											<p class="featuredName">Berlin</p>
+											<p class="location">Berlin,Germany</p>
+										</div>
+									</section>
+								</section>
+							</section>
+							<section class="exploreTop">
+								<h3>Top Destinations</h3>
+								<section class="topCards">
+								<div class="topCard">
+									<img src="https://images.unsplash.com/photo-1539037116277-4db20889f2d4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjYyNjh8MHwxfHNlYXJjaHw0fHxiYXJjZWxvbmF8ZW58MHx8fHwxNjY0MjE4MDQ4&ixlib=rb-1.2.1&q=80&w=200" alt="">
+									<p>Barcelona</p>
+									<span class="rating">4.8</span>
+								</div>
+								<div class="topCard">
+									<img src="https://images.unsplash.com/photo-1431274172761-fca41d930114?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjYyNjh8MHwxfHNlYXJjaHw2fHxwYXJpc3xlbnwwfHx8fDE2NjQyMTg5NDE&ixlib=rb-1.2.1&q=80&w=200" alt="">
+									<p>Paris</p>
+									<span class="rating">4.6</span>
+								</div>
+								<div class="topCard">
+									<img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjYyNjh8MHwxfHNlYXJjaHwyfHxuZXclMjB5b3JrfGVufDB8fHx8MTY2NDIxOTAyMg&ixlib=rb-1.2.1&q=80&w=200" alt="">
+									<p>New York</p>
+									<span class="rating">4.5</span>
+								</div>
+								<div class="topCard">
+									<img src="https://images.unsplash.com/photo-1531572753322-ad063cecc140?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjYyNjh8MHwxfHNlYXJjaHwyfHxyb21lfGVufDB8fHx8MTY2NDIxOTA3NQ&ixlib=rb-1.2.1&q=80&w=200" alt="">
+									<p>Rome</p>
+									<span class="rating">4.3</span>
+								</div>
+								<div class="topCard">
+									<img src="https://images.unsplash.com/photo-1547537352-ae90c682877e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjYyNjh8MHwxfHNlYXJjaHwxfHxob25vbHVsdXxlbnwwfHx8fDE2NjQyMjI0NDE&ixlib=rb-1.2.1&q=80&w=1080" alt="">
+									<p>Honolulu</p>
+									<span class="rating">4.8</span>
+								</div>
+								<div class="topCard">
+									<img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjYyNjh8MHwxfHNlYXJjaHwxfHxsb25kb258ZW58MHx8fHwxNjY0MjIyNjEy&ixlib=rb-1.2.1&q=80&w=1080" alt="">
+									<p>London</p>
+									<span class="rating">4.3</span>
+								</div>
+								<div class="topCard">
+									<img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjYyNjh8MHwxfHNlYXJjaHwyfHx0b2t5b3xlbnwwfHx8fDE2NjQyMjI2NjY&ixlib=rb-1.2.1&q=80&w=1080" alt="">
+									<p>Tokyo</p>
+									<span class="rating">4.8</span>
+								</div>
+							</section>
+							</section>
+						</section>
 					</section>
 				</div>
 			</main>
 
 
 			<nav>
-				<button class="homeButton">Home</button>
-				<button class="exploreButton">Explore</button>
+				<input type="radio" name="navagation" id="homeBtn" checked>
+				<label for="homeBtn" class="homeButton">Home</label> 
+				<input type="radio" name="navagation" id="exploreBtn">
+				<label for="exploreBtn" class="exploreButton">Explore</label> 
 			</nav>
 
 		</section>

@@ -30,32 +30,156 @@ html, body {
 }
 
 body {
-     padding: 2rem;
+     padding: 1rem;
      font-size: 1.6rem;
+     font-family: 'Montserrat', sans-serif;
 }
-h1 {
+ h1 {
      margin: 0;
+     background: url('https://img.icons8.com/external-prettycons-solid-prettycons/60/000000/external-world-travel-prettycons-solid-prettycons-1.png') no-repeat;
+     background-size: contain;
+     padding-left: 5.5rem;
+     font-size: 3.5rem;
+     font-family: 'Berkshire Swash', 'Cursive';
+     font-weight: 700;
 }
-
+h2 {
+     font-weight: 500;
+     font-size: 3rem;
+}
 /******************************************
 /* LAYOUT
 /*******************************************/
 
 /******************* LANDING STYLES ************************/
+.container {
+     display: flex;
+     flex-flow: column;
+     padding: 0;
+}
+.landingHeader {
+     display: flex;
+     align-items: center;
+     padding: 1rem 2rem;
+     flex: 0 1 8rem;
+     box-shadow: 0 1px 10px 0 rgba(120, 120, 120, .8);
+     z-index: 2;
+}
+.landingHeader h1 {
+     background: none;
+     padding: 0;
+     font-size: 4rem;
+}
 .login {
      margin-left: auto;
 }
 .landingMain {
      display: flex;
+    
+     flex: 1 1 auto;
+     background: linear-gradient(to right, rgba(255,255,255) 50%, rgba(215,234,218) 50%);
 }
 .leftText, .rightImage {
      width: 50%;
+     padding: 1rem 2rem;
+     /* padding-top: 10rem; */
 }
+.leftText h2 {
+     font-size: 4rem;
+     margin: 1rem 0 2.5rem 0 ;
+}
+.leftText span {
+     display: block;
+     padding-top: 1vw;
+     letter-spacing: .7rem;
+}
+
 .rightImage img {
      width: 100%;
+     border-radius: 1rem;
+}
+.imageContainer {
+     height: 50vh;
+     width: 100%;
+     overflow: hidden;
+     border-radius: 1rem;
 }
 footer {
+     flex: 0 1 1.5rem;
+     background-color: white;
+     text-align: center;
+     border-top: 1px solid rgba(164, 164, 164, .5);
 
+}
+footer p {
+     margin: 1rem 0;
+     font-size: 1.2rem;
+}
+.container main a, .container header a {
+     padding: 1rem 3rem;
+     background-color: black;
+     color: white;
+     border-radius: 5rem;
+     text-decoration: none;
+}
+.container main a:hover, .container header a:hover {
+     outline: 1px solid black;
+     background: white;
+     color: black;
+}
+footer a {
+     color: black;
+}
+.mainContainer {
+     display: flex;
+     height: fit-content;
+     align-self: center;
+     width: 100%;
+     padding: 0 2rem;
+}
+@media  screen and (min-width:1024px) {
+     .leftText h2 {
+          font-size: 5rem;
+     }
+     
+}
+@media screen and (max-width:770px) {
+     .landingMain {
+          background: linear-gradient(to top, rgba(255,255,255) 50%, rgba(215,234,218) 50%);
+     }
+     .mainContainer {
+          flex-flow: column;
+          align-items: center;
+          padding: 2rem 0;
+     }
+     .leftText {
+          width: 70%;
+          order: 2;
+     }
+     .rightImage {
+     width: 70%;
+     }
+     .imageContainer {
+          height: 100%;
+     }
+     
+     
+}
+@media screen and (max-width:450px) {
+     .leftText h2 {
+          font-size: 3.5rem;
+     }
+     .leftText, .rightImage {
+          width: 100%;
+     }
+     
+}
+@media screen and (max-width:325px) {
+     .leftText h2 {
+          font-size: 2.8rem;
+     }
+    
+     
 }
 /****************** HOMEPAGE STYLES *************************/
 .mainScreen {
@@ -63,22 +187,44 @@ footer {
      flex-flow: column;
      height: 100%;
 }
-.mainScreen header {
-     flex: 0 1 4rem;
+.mainScreen .mainHeader {
+     flex: 0 1 7rem;
      display: flex;
      align-items: center;
-     padding: 0 1rem;
-     margin-bottom: 1.5rem;
+     padding: 0 2rem;
+     margin-bottom: 1rem;
+     column-gap: 1.5rem;
+     font-size: 1.7rem;
+}
+.mainScreen .mainHeader img {
+     width: 2.2rem;
+     border-radius: 2rem;
+     outline: 3px solid rgb(20, 20, 20);
+     margin-right: 1rem;
+}
+.mainScreen .logout {
+     /* border: none; */
+     /* background: rgb(20, 20, 20); */
+     color: black;
+     padding: .4rem 1.5rem;
+     border-radius: 3rem;
+     background-color: white;
+     border: 2px solid rgb(20, 20, 20);
+
+}
+.mainScreen .logout:hover {
+     background-color: rgb(20, 20, 20);
+     color: white;
 }
 .mainScreen main {
-     flex: 1 1 auto;
+     flex: 1 1 50%;
      overflow: hidden;
 }
 .mainScreen nav {
      width: 60%;
      align-self: center;
      margin-top: 1rem;
-     flex: 0 1 7rem;
+     flex: 0 1 6rem;
      background-color: rgb(20, 20, 20);
      border-radius: 5rem;
      display: flex;
@@ -87,7 +233,7 @@ footer {
      column-gap: 2rem;
      /* font-family: Arial, Helvetica, sans-serif; */
 }
-.mainScreen nav > * {
+.mainScreen .homeButton, .mainScreen .exploreButton {
      border: none;
      background-color: transparent;
      color: white;
@@ -95,6 +241,10 @@ footer {
      font-size: 1.6rem;
      padding-top: 1rem;
      padding-bottom: 1rem;
+     outline: none;
+}
+#homeBtn, #exploreBtn {
+     display: none;
 }
 .homeButton {
      background: url('https://img.icons8.com/ios/50/FFFFFF/home--v3.png') no-repeat;
@@ -102,26 +252,18 @@ footer {
      padding-left: 3rem;
      background-position: 0 7px;
 }
-.homeButton:hover {
+.homeButton:hover, .exploreButton:hover {
      
      border-bottom: 1px solid white;
-     /* color:rgba(41, 156, 79, 1);
-
-     background: url('https://img.icons8.com/ios/50/299C4C/home--v3.png') no-repeat;
-     background-size: 25%;
-     padding-left: 3rem;
-     background-position: 0 7px; */
-
-     /* background-color: white; */
 }
-.homeButton:focus {
+#homeBtn:checked + label , #exploreBtn:checked + label {
      border-bottom: 1px solid white;
 }
 .exploreButton {
      background: url('https://img.icons8.com/ios/50/FFFFFF/compass--v1.png') no-repeat;
      background-size: 23%;
      padding-left: 3rem;
-     background-position: 0 7px;
+     background-position: 0 8px;
 }
 .pageContainer {
      width: 200%;
@@ -134,7 +276,7 @@ footer {
      min-height: 20rem;
      background-color: rgba(215, 234, 218, 1);
      border-radius: 1rem;
-     padding: 1rem;
+     padding: 1rem 2rem 2rem 2rem;
 }
 .homePage {
      overflow-y: auto;
@@ -162,10 +304,10 @@ header .greeting {
      width: 100%;
      flex-wrap: wrap;
      row-gap: 1rem;
+     column-gap: 1rem;
 }
 .destinationCard {
      display: flex;
-     margin-right: 2rem;
      padding: .5rem;
      border-radius: 1rem;
      background-color: white;
@@ -270,7 +412,8 @@ header .greeting {
      padding-left: 3.5rem;  
 }
 .moreWindow button:hover {
-     background-color: rgba(215,234,218, 1);
+     background-color: rgba(20,20,20, 1);
+     color: white;
 
 }
 .moreWindow .view, .moreWindow .delete, .moreWindow .edit {
@@ -342,22 +485,23 @@ header .greeting {
 }
 .formWindow {
      z-index: 5;
-     background-color: rgb(20, 20, 20);
+     background-color:white;
+     
 }
 .formWindow label, .formWindow .time {
      margin-top: 1.8rem;
 }
 .formWindow label {
-     color: whitesmoke;
+     color: rgb(20, 20, 20);
      margin-bottom: .4rem;
      font-weight: 700;
      font-size: 1.8rem;
 }
 .formWindow input:not(#updateDestination, #addDestination), .formWindow textarea {
-     border: none;
+     border: 1px rgba(41, 156, 79, 1) solid;
      border-radius: .5rem;
-     box-shadow: inset 0 0 6px 1px rgba(0,0,0,.3);
-     background-color: rgb(243, 243, 243);
+     /* box-shadow: inset 0 0 6px 1px rgba(0,0,0,.3); */
+     /* background-color: rgb(243, 243, 243); */
      outline: none;
      padding: 1rem;
 }
@@ -367,8 +511,9 @@ header .greeting {
      border-radius: .5rem;
      margin-left: .5rem;
      box-shadow: inset 0 0 1px 1px rgba(0,0,0,.3);
+     /* outline: 1px rgba(41, 156, 79, 1) solid ; */
+     /* background-color: rgb(243, 243, 243); */
      outline: none;
-     background-color: rgb(243, 243, 243);
 
 }
 .tripName, .locationInput {
@@ -387,14 +532,14 @@ header .greeting {
      padding: .6rem 2rem;
      position: relative;
      margin-top: 2rem;
-     left: 37%;
+     left: 38%;
 }
 #updateDestination:hover, #addDestination:hover {
      color: black;
 }
 .closeForm {
      color: white;
-     background: url('https://img.icons8.com/ios-filled/50/FFFFFF/delete-sign--v2.png') no-repeat;
+     background: url('https://img.icons8.com/ios-filled/50/000000/delete-sign--v2.png') no-repeat;
      background-size: contain;
      display: block;
      border: none;
@@ -431,7 +576,7 @@ header .greeting {
 .viewWindow {
      background-color: white;
      width: 65%;
-     max-width: 40rem;
+     max-width: 50rem;
      padding-top: 1.5rem;
      z-index: 4;
 }
@@ -444,7 +589,7 @@ header .greeting {
      margin: 1.5rem 0;
 }
 .viewWindow .month, .viewWindow .year {
-     margin-right: 1rem;
+     margin-right: .7rem;
      margin-bottom: 1rem;
 }
 .viewWindow .notes {
@@ -454,7 +599,7 @@ header .greeting {
 }
 .viewWindow .imageURL {
      width: 100%;
-     max-width: 40rem;
+     /* max-width: 40rem; */
      margin-top: 3rem;
 }
 .viewWindow .moreWindow {
@@ -497,6 +642,172 @@ header .greeting {
      background-size: contain;
 }
 /********************** EXPOREPAGE STYLES *********************/
+.explorePage::-webkit-scrollbar, .homePage::-webkit-scrollbar {
+     background: transparent;
+     width: 10px; 
+}
+.explorePage::-webkit-scrollbar-thumb, .homePage::-webkit-scrollbar-thumb {
+     background: rgba(20, 20, 20, .8);
+     border-radius: 10px;     
+}
+.explorePage {
+     overflow-y: auto;
+}
+
+.explorePage header {
+     display: flex;
+     margin-bottom: 1rem;
+     align-items: center;
+     height: 8rem;
+}
+.explorePage h2 {
+     margin: 0;
+     /* font-size: 2.5rem; */
+}
+.exploreSearch {
+     margin-left: auto;
+     height: 4rem;
+     width: 30%;
+     outline: none;
+     border: none;
+     border-radius: .5rem;
+     padding-left: 3.5rem;
+
+     background: url('https://img.icons8.com/ios-glyphs/30/000000/search--v1.png') no-repeat;
+     background-size: 23px;
+     background-position: 5px 8px;
+
+     background-color: white;
+}
+.exploreContainer {
+     display: flex;
+     column-gap: 2rem;
+
+}
+.exploreCards {
+     flex: 1 1 70%;
+     display: flex;
+     flex-flow: column;
+     row-gap: 3rem;
+}
+.exploreCards h3 {
+     margin: 0;
+     margin-bottom: 1.6rem;
+     /* font-size: 1.8rem; */
+}
+.catagories {
+     background-color: rgba(20,20,20, 1);
+     color: white;
+     border-radius: 1rem;
+     padding: 1.5rem 1rem;
+}
+.catagories h3 {
+     padding-left: 1rem;
+}
+.catagoriesContainer {
+     display: flex;
+     padding: 0 1rem;
+     justify-content: space-around;
+}
+.catagoryBtn {
+     display: flex;
+     flex-flow: column;
+     row-gap: 1rem;
+     align-items: center;
+}
+.catagoryBtn .imgContainer {
+     width: 50px;
+     height: 50px;
+     border-radius: 5rem;
+     overflow: hidden;
+     /* outline: 1px solid white; */
+}
+.imgContainer img {
+     width: 100%;
+}
+.exploreTop {
+     width: 30%;
+     background-color: white;
+     border-radius: .5rem;
+     display: flex;
+     align-items: center;
+     flex-flow: column;
+     padding: 1rem 2rem;
+}
+.exploreTop h3 {
+     margin: 2.5rem 0;
+}
+.topCards {
+     display: flex;
+     flex-flow: column;
+     /* row-gap: 2rem; */
+}
+.topCard {
+     display: flex;
+     column-gap: 1rem;
+     /* border-radius: 1rem; */
+     align-items: center;
+     border-top: 1px solid rgba(190, 190, 190, .8);
+     padding: 1rem 0;
+}
+.topCard:hover {
+     /* background-color: rgba(20, 20, 20, .5); */
+}
+.topCard .rating {
+     background: url('https://img.icons8.com/ios-glyphs/30/299C4F/star--v1.png') no-repeat;
+     background-size: 13px;
+     background-position: 0 -1px;
+     padding-left: 1.8rem;
+     font-size: 1.2rem;
+     margin-left: auto;
+}
+.topCard img {
+     width: 30%;
+     border-radius: 1rem;
+     /* outline: 1px solid black; */
+}
+.featuredContainer {
+     display: flex;
+     column-gap: 2%;
+     row-gap: 1.5rem;
+     flex-wrap: wrap;
+}
+.featured h3 {
+     font-size: 2rem;
+}
+.featuredCard {
+     background-color: white;
+     width: 49%;
+     border-radius: 1rem;
+     overflow: hidden;
+     /* padding: 1rem; */
+     /* box-shadow: 0 0 10px 2px rgba(120,120,120,.3); */
+     display: flex;
+     flex-flow: column;
+     align-items: baseline;
+}
+.featuredImg {
+     overflow: hidden;
+     height: 15rem;
+     border: 2px solid white;
+     border-radius: 1rem;
+}
+.featuredName {
+     font-size: 1.7rem;
+     font-weight: 700;
+}
+.featuredCard img {
+     width: 100%;
+     /* height: 15rem; */
+}
+.featuredCard p {
+     margin: 0;
+     margin: .5rem 2rem;
+}
+.featuredCard .location {
+     font-size: 1.4rem;
+     margin-bottom: 1rem;
+}
 /******************************************
 /* ADDITIONAL STYLES
 /*******************************************/
@@ -523,6 +834,113 @@ header .greeting {
      } 
      100% {
           transform: translateX(0%);
+     }
+     
+}
+@media screen and (max-width: 885px) {
+     .exploreContainer {
+          flex-flow: column;
+          row-gap: 2rem;
+     }
+     .exploreTop {
+          flex-flow: row;
+          width: 100%;
+          text-align: center;
+     }
+     .exploreTop h3 {
+          margin-right: 2rem;
+     }
+     .topCards {
+          flex-flow: row;
+          overflow-y: auto;
+          column-gap: 2rem;
+     }
+     .topCard {
+          flex-flow: column;
+          align-items: center;
+          border: none;
+     }
+     .topCard img {
+          width: 10rem;
+     }
+     .topCard .rating {
+          margin-left: 0;
+     }
+}
+@media screen and (max-width: 480px) {
+     .destinationCard {
+          width: 100%;
+     }
+     .greeting {
+          display: none;
+     }
+     .mainScreen nav {
+          width: 100%;
+          flex: 0 1 5rem;
+     }
+     .mainHeader img {
+          margin-left: auto;
+     }
+
+     .formWindow, .viewWindow, .confirmWindow {
+          width: 90%;
+     }
+
+     .destinationCard .moreWindow {
+          left: 55%;
+          top: 30%;
+     }
+
+     .featuredContainer {
+          flex-flow: column;
+     }
+     .featuredCard {
+          width: 100%;
+     }
+     .exploreTop h3 {
+          display: none;
+     }
+     .exploreSearch {
+          width: 50%;
+     }
+     .catagories {
+          width: 100%;
+          overflow: hidden;
+          overflow-x: scroll;
+     }
+     .catagoriesContainer {
+          width: 500px;
+     }
+}
+@media screen and (max-width: 375px) {
+    .destinationCard .moreButton {
+          position: absolute;
+          right: 3px;
+     }
+     .cardDetails .name {
+          padding-top: 1.2rem;
+          
+     }
+     .destinationCard {
+          height: unset;
+     }
+     .mainHeader img {
+          display: none;
+     }
+     .logout {
+          margin-left: auto;
+     }
+     .homeHeader {
+          flex-flow: column;
+     }
+     .addNewButton {
+          margin: 1rem 0;
+     }
+     .homePage h2 {
+          margin: 1.5rem 0 1rem 0;
+     }
+     .formWindow, .viewWindow, .confirmWindow {
+          width: 100%;
      }
      
 }
