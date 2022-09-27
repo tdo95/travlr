@@ -54,7 +54,7 @@ app.post('/roadgoat', async (req, res) => {
 app.post('/unsplash', async (req, res) => {
     console.log('GETTING IMAGE....')
     console.log(req.body)
-    fetch(`https://api.unsplash.com/search/photos?query=${req.body.input}&orientation=landscape&client_id=${process.env.UNSPLASH_KEY}`)
+    fetch(`https://api.unsplash.com/search/photos?query=${req.body.input.toLowerCase()}&orientation=landscape&client_id=${process.env.UNSPLASH_KEY}`)
     .then(response => response.json())
     //sends the first image obj in results
     .then(result => {
@@ -145,31 +145,15 @@ app.put('/home', (req, res) => {
         }
     })
     .catch(err => console.log(err))  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
 })
 //DELETE DESTINATION ROUTE
 app.delete('/home', (req, res) => {
     console.log('DELETING destination....');
-    console.log(req.body);
     db.collection('destinations').deleteOne(req.body)
     .then(result => {
-        if (result.acknowledged) res.status(200).send({success: "Desination successfully deleted"})
+        console.log(result)
+        if (result.deletedCount > 0) res.status(200).send({success: "Desination successfully deleted"})
         else res.status(400).send({error: "Desination deletion unsuccessful"})
     })
     .catch(error => console.error(error))
