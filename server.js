@@ -114,7 +114,7 @@ app.post('/home', (req, res) => {
 app.put('/home', (req, res) => {
     console.log('UPDATING destination....');
     console.log(req.body)
-    //check if new destination entry already exists
+    //check if the desired entry already exists
     db.collection('destinations').find({
         name: req.body.new.name,
         location: req.body.new.location,
@@ -123,7 +123,7 @@ app.put('/home', (req, res) => {
     })
     .toArray()
     .then(data => {
-        //if entry doesnt exist add new entry
+        //if the desired entry doesnt already exist update to the desired entry
         if (data.length === 0) {
 
             db.collection('destinations').findOneAndUpdate(req.body.previous, {
@@ -136,9 +136,9 @@ app.put('/home', (req, res) => {
             .catch(err => console.log(err));
 
         }
-        //if entry exists send an error
+        //if desired entry exists send an error
         else {
-            console.log('Could not find entry to Update');
+            console.log('Desired entry already exists, update failed');
             res.status(400).send({
                 error: 'The destination you are trying to update to already exists. Please enter a unique entry'
             })
