@@ -5,10 +5,9 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 const MongoClient = require('mongodb').MongoClient;
 
-let mongoConnectionString = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.vytxyy3.mongodb.net/?retryWrites=true&w=majority`;
 let db;
 
-MongoClient.connect(mongoConnectionString)
+MongoClient.connect(process.env.DB_STRING)
     .then(client => {
         console.log('Database Connected - YOU DID IT!!!');
         db = client.db('destinations-library');
