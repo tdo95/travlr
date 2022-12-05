@@ -83,7 +83,7 @@
 
 [![Travlr Demo][product-screenshot]](https://travlr.onrender.com/)
 
-Traveler is a CRUD application that allows users to eep track of all thier future travel destinations in one place. Create a running log of the location and travel time, along with any notes for places to visit in the future.
+Travlr is a CRUD application that allows users to eep track of all thier future travel destinations in one place. Create a running log of the location and travel time, along with any notes for places to visit in the future.
 
 ### Features
 - Create and store destinations
